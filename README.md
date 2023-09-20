@@ -4,14 +4,14 @@ Your manager has provided a [backup of the company’s enterprise database](http
 and asks that you use it to demonstrate a Proof
 of Concept application 
 ## including:
-– Single Sign on (SSO) / AD authentication with SSL/TLS encryption
-– Application / Web portal for viewing/browsing (sample) enterprise employee data (with SSO roles)
-– Github (or other repo) integrated into SSO (optional)
-– Jenkins, integrated into SSO and Github repo;
-– Additional integrations / features / capabilities for higher grade (layered security, social media integration, document repository, Salesforce integration, etc..)
+  – Single Sign on (SSO) / AD authentication with SSL/TLS encryption
+  – Application / Web portal for viewing/browsing (sample) enterprise employee data (with SSO roles)
+  – Github (or other repo) integrated into SSO (optional)
+  – Jenkins, integrated into SSO and Github repo;
+  – Additional integrations / features / capabilities for higher grade (layered security, social media integration, document repository, Salesforce integration, etc..)
 ## Project Deliverables:
-– Project Plan in .docx format. There’s a template in Canvas, or you can make your own
-– Project Presentation in .pptx format
-– Project Report: .docx format, including design patterns, diagrams, use/test cases, screenshots, etc. There is a template in Canvas
-– 15 minute live project presentation, where each team member MUST present/speak for a portion
-– Code (checked into github , with references in Project Report: [https://github.com/sjsu-cmpe272](https://github.com/sjsu-cmpe272)
+  – Project Plan in .docx format. There’s a template in Canvas, or you can make your own
+  – Project Presentation in .pptx format
+  – Project Report: .docx format, including design patterns, diagrams, use/test cases, screenshots, etc. There is a template in Canvas
+  – 15 minute live project presentation, where each team member MUST present/speak for a portion
+  – Code (checked into github , with references in Project Report: [https://github.com/sjsu-cmpe272](https://github.com/sjsu-cmpe272)

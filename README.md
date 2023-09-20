@@ -15,3 +15,4 @@ of Concept application
 - Project Report: .docx format, including design patterns, diagrams, use/test cases, screenshots, etc. There is a template in Canvas
 - 15 minute live project presentation, where each team member MUST present/speak for a portion
 - Code (checked into github , with references in Project Report: [https://github.com/sjsu-cmpe272](https://github.com/sjsu-cmpe272)
+## Sample project provided by prof: [https://github.com/sjsu-cmpe282/the-elite](https://github.com/sjsu-cmpe282/the-elite)

@@ -1,8 +1,8 @@
 # CMPE272_Project
 Your team works for a company that wants to create an enterprise HR Portal application.
-Your manager has provided a [backup of the company’s enterprise database](https://github.com/datacharmer/test_db)
-and asks that you use it to demonstrate a Proof
-of Concept application 
+Your manager has provided a backup of the company’s enterprise database
+and asks that you use it to demonstrate a Proof of Concept application 
+company's enterprise database link: [https://github.com/datacharmer/test_db](https://github.com/datacharmer/test_db)
 ## including:
 - Single Sign on (SSO) / AD authentication with SSL/TLS encryption
 - Application / Web portal for viewing/browsing (sample) enterprise employee data (with SSO roles)

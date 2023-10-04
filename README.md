@@ -82,7 +82,7 @@ myapp/
 ├── README.md
 ```
   
-#### How to run our React Front-end:
+## How to run our React Front-end:
 - install node.js. https://nodejs.org/en
 - after installation of node.js. run the following command to install the dependencies and neccessary files for this project.
 ```

@@ -1,7 +1,6 @@
-from models.admin import Admin
-from models.employee import Employee
-from models.manager import Manager
-from models.message import Message
+from backend.models.admin import Admin
+from backend.models.employee import Employee
+from backend.models.manager import Manager
 
 
 def retrieve_user_info(employee_no):

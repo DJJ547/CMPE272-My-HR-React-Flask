@@ -1,3 +1,4 @@
 *.log
-venv/
-.env
+backend/venv/
+backend/.env
+backend/app/.env

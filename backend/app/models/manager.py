@@ -7,3 +7,20 @@ class Manager:
         self.gender = gender
         self.from_date = from_date
         self.to_date = to_date
+
+        
+    def assign_shifts(self, employee_id, shift):
+        for x in enumerate(self.department_employees):
+            if x.employee_no == employee_id:
+                x.shifts.append(shift)
+                break
+        else: 
+            print('Employee with that ID was not found under the current Manager');
+    
+    def look_up_shifts(self, employee_id):
+        for x in enumerate(self.department_employees):
+            if x.employee_no == employee_id:
+                return x.shifts
+                break
+        else: 
+            print('Employee with that ID was not found under the current Manager');

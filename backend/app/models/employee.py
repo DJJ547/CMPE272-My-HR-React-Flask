@@ -1,3 +1,6 @@
+import datetime
+from datetime import timedelta
+
 class Employee:
     def __init__(self, employee_no, first_name, last_name, birthdate, gender, hire_date, shifts):
         self.employee_no = employee_no
@@ -8,8 +11,13 @@ class Employee:
         self.hire_date = hire_date
         self.shifts = shifts
 
+    def check_if_shift_exist(self, time):
+        for shift in self.shifts:
+            if shift.start_time - time:
 
     def start_shift(self, clock_in_time):
+        for shift in self.shifts:
+            if
         if clock_in_time < self.start_time or clock_in_time > self.end_time:
             print('Oops, You dont have any shift assigned this time.')
             return

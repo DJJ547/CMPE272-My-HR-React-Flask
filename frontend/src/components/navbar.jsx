@@ -1,6 +1,6 @@
 import React, { useState }from "react";
 
-import NavItem from "./navItem";
+import NavItem from "./NavItem";
 
 export default function NavBar() {
 

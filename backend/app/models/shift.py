@@ -20,7 +20,7 @@ class Shift:
 
     def calculate_lunch_time(self):
         lunch_time = timedelta(hours=0)
-        if self.end_time - self.start_time == timedelta(hours=8):
+        if self.end_time - self.start_time >= timedelta(hours=8):
             lunch_time = timedelta(hours=1)
         elif timedelta(hours=4) <= self.end_time - self.start_time <= timedelta(hours=8):
             lunch_time = timedelta(hours=0.5)

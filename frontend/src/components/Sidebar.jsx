@@ -103,12 +103,6 @@ export default function Sidebar() {
         </ListItem>
         <ListItem>
           <ListItemPrefix>
-            <UserCircleIcon className="h-5 w-5" />
-          </ListItemPrefix>
-          Profile
-        </ListItem>
-        <ListItem>
-          <ListItemPrefix>
             <Cog6ToothIcon className="h-5 w-5" />
           </ListItemPrefix>
           Settings

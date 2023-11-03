@@ -21,7 +21,7 @@ export default function App() {
 
       <Routes>
         <Route path="/auth/login" element={<Login />} />
-        <Route path="/auth/signup" element={<Signup />} />
+        {/* <Route path="/auth/signup" element={<Signup />} /> */}
         <Route path="/" element={<Navigate to="/auth/login" replace />} />
       </Routes>
 

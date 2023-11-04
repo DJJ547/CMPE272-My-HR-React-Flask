@@ -47,6 +47,7 @@ export default function Sidebar() {
           </ListItemPrefix>
           Clock in/out
         </ListItem>
+        
         <ListItem>
           <ListItemPrefix>
             <InboxIcon className="h-5 w-5" />

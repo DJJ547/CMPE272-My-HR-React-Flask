@@ -7,18 +7,18 @@ export default function Login() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const email = e.target.elements.email.value;
+    const employee_no = e.target.elements.employee_no.value;
     const password = e.target.elements.password.value;
     fetch("http://localhost:5000/auth/login", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ email, password }),
+      body: JSON.stringify({ employee_no, password }),
     })
     .then((response) => response.json())
     .then((data) => {
-      console.log(data.user[3]);
+      console.log(data.output.employee_no);
       if(data.message === "success"){
-        dispatch(setUser(data.user[3]));
+        dispatch(setUser(data.output.employee_no));
         window.location.href = "/dashboard";
       }
     }
@@ -32,10 +32,10 @@ export default function Login() {
         <h2 className="text-2xl font-bold text-gray-900 mb-4">Login</h2>
         <form className="flex flex-col" onSubmit={handleSubmit}>
           <input
-            type="email"
-            name="email"
+            type="text"
+            name="employee_no"
             className="bg-gray-100 text-gray-900 border-0 rounded-md p-2 mb-4 focus:bg-gray-200 focus:outline-none focus:ring-1 focus:ring-blue-500 transition ease-in-out duration-150"
-            placeholder="Email address"
+            placeholder="Enter employee number"
           />
           <input
             type="password"

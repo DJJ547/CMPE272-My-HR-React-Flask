@@ -39,22 +39,24 @@ def test():
 def login():
     if request.method == 'POST':
         # get user input
-        email = request.json['email']
+        employee_no = request.json['employee_no']
         password = request.json['password']
 
         #open database connection, and fetch data from database
         cur = mysql.connection.cursor()
-        cur.execute("SELECT * FROM users WHERE email = %s AND password = %s", (email, password))
+        cur.execute("SELECT * FROM employees WHERE emp_no = %s AND password = %s", (employee_no, password))
         user = cur.fetchone()
         cur.close()
 
         # check exist or not, the data fetched from database
         if user:
-            # add the user to cookie
-            session['email'] = email
+            # add the user to session
+            session['employee_no'] = employee_no
             session['password'] = password
+            output = {'employee_no': employee_no}
+            res = {'message': 'success', 'error': False, 'output': output}
             #return the user data fetched from database to frontend
-            return Response(json.dumps({'message': 'success', 'user':user }), status=200)
+            return Response(json.dumps(res), status=200)
         else:
             # return error message to frontend
             return Response(json.dumps({'message': 'Invalid email or password'}), status=401)

@@ -21,16 +21,14 @@ and asks that you use it to demonstrate a Proof of Concept application
 ## Backend Project Layout
 ```
 backend/
-├── app/
-│   ├── __init__.py
-│   ├── routes.py
-│   ├── templates/
-│   │   ├── index.html
-│   ├── static/
-│   │   ├── css/
-│   │   ├── img/
-├── requirements.txt
+├── __init__.py
 ├── app.py
+├── templates/
+│   ├── index.html
+├── static/
+│   ├── css/
+│   ├── img/
+├── requirements.txt
 ```
 
 ## How to run our Python Flask Back-end:

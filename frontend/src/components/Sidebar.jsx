@@ -23,15 +23,19 @@ import Logout from "../pages/auth/logout";
 </Typography>
 
 export default function Sidebar() {
+  const handleClick = (path) => () => {
+    window.location.href = path;
+  };
+
   return (
     <Card className="h-[calc(100vh-2rem)] w-full max-w-[20rem] p-4 shadow-xl shadow-blue-gray-900/5">
       <div className="mb-2 p-4">
         <Typography variant="h5" color="blue-gray">
-          <Link to="/dashboard">Dashboard</Link>
+          Dashboard
         </Typography>
       </div>
       <List>
-        <ListItem>
+        <ListItem onClick={handleClick("/dashboard")}>
           <ListItemPrefix>
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -46,21 +50,21 @@ export default function Sidebar() {
               />
             </svg>
           </ListItemPrefix>
-          <Link to="/dashboard">Dashboard</Link>
+          Dashboard
         </ListItem>
 
-        <ListItem>
+        <ListItem onClick={handleClick("/dashboard/clock")}>
           <ListItemPrefix>
             <CalendarIcon className="h-5 w-5" />
           </ListItemPrefix>
-          <Link to="/dashboard/clock">Clock In/Out</Link>
+          Clock In/Out
         </ListItem>
         
-        <ListItem>
+        <ListItem onClick={handleClick("/dashboard/message")}>
           <ListItemPrefix>
             <InboxIcon className="h-5 w-5" />
           </ListItemPrefix>
-          <Link to="/dashboard/message">Message</Link>
+          Message
           <ListItemSuffix>
             <Chip
               value="14"
@@ -72,7 +76,7 @@ export default function Sidebar() {
           </ListItemSuffix>
         </ListItem>
 
-        <ListItem>
+        <ListItem onClick={handleClick("/dashboard/scheduling")}>
           <ListItemPrefix>
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -89,10 +93,10 @@ export default function Sidebar() {
               />
             </svg>
           </ListItemPrefix>
-          <Link to="/dashboard/scheduling">Scheduling</Link>
+          Scheduling
         </ListItem>
 
-        <ListItem>
+        <ListItem onClick={handleClick("/dashboard/pay")}>
           <ListItemPrefix>
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -109,23 +113,22 @@ export default function Sidebar() {
               />
             </svg>
           </ListItemPrefix>
-          <Link to="/dashboard/pay">Pay</Link>
+          Pay
         </ListItem>
 
-        <ListItem>
+        <ListItem onClick={handleClick("/dashboard/setting")}>
           <ListItemPrefix>
             <Cog6ToothIcon className="h-5 w-5" />
           </ListItemPrefix>
-          <Link to="/dashboard/setting">Setting</Link>
+          Setting
         </ListItem>
 
-        <ListItem>
+        <ListItem onClick={Logout}>
           <ListItemPrefix>
             <PowerIcon className="h-5 w-5" />
           </ListItemPrefix>
-          <Logout />
+          Log out
         </ListItem>
-
       </List>
     </Card>
   );

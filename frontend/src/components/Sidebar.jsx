@@ -8,13 +8,13 @@ import {
   Chip,
 } from "@material-tailwind/react";
 import {
-  UserCircleIcon,
   Cog6ToothIcon,
   InboxIcon,
   PowerIcon,
   CalendarIcon,
 } from "@heroicons/react/24/solid";
 import { Link } from 'react-router-dom';
+import Logout from "../pages/auth/logout";
 
 // ...
 
@@ -23,10 +23,6 @@ import { Link } from 'react-router-dom';
 </Typography>
 
 export default function Sidebar() {
-  const handleLogout = () => {
-    localStorage.removeItem('employee_information');
-    localStorage.removeItem('token');
-  }
   return (
     <Card className="h-[calc(100vh-2rem)] w-full max-w-[20rem] p-4 shadow-xl shadow-blue-gray-900/5">
       <div className="mb-2 p-4">
@@ -127,7 +123,7 @@ export default function Sidebar() {
           <ListItemPrefix>
             <PowerIcon className="h-5 w-5" />
           </ListItemPrefix>
-          <Link to="/auth/login" onClick={handleLogout}>Logout</Link>
+          <Logout />
         </ListItem>
 
       </List>

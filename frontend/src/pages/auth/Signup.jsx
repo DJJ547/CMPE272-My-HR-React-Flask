@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { setUser } from "../../store/userSlice";
 
 export default function Login() {
   const [password, setPassword] = React.useState("");
@@ -31,7 +30,6 @@ export default function Login() {
         else{
           alert("Signup Successful");
           window.location.href = "/auth/login";
-          dispatchEvent(setUser(data.user));
         }
       })
       .catch((err) => {

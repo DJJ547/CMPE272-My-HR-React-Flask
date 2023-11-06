@@ -1,14 +1,12 @@
-import React, { useState } from "react";
-import { useDispatch } from 'react-redux';
-import { setUser } from '../../store/userSlice';
+import React from "react";
 
 export default function Login() {
-  const dispatch = useDispatch();
 
   const handleSubmit = (e) => {
     e.preventDefault();
     const employee_no = e.target.elements.employee_no.value;
     const password = e.target.elements.password.value;
+    
     fetch("http://localhost:5000/auth/login", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -16,10 +14,13 @@ export default function Login() {
     })
     .then((response) => response.json())
     .then((data) => {
-      console.log(data.output.employee_no);
       if(data.message === "success"){
-        dispatch(setUser(data.output.employee_no));
+        localStorage.setItem('employee_information', JSON.stringify(data.data));
+        localStorage.setItem('token', JSON.stringify(data.token));
         window.location.href = "/dashboard";
+      }
+      else{
+        alert(data.message);
       }
     }
     )

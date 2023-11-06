@@ -7,9 +7,10 @@ from flask import Flask, \
     request, \
     json
 from datetime import timedelta
+import os
 from flask_cors import CORS
 from flask_mysqldb import MySQL
-import os
+import jwt
 
 
 app = Flask(__name__)
@@ -50,13 +51,18 @@ def login():
 
         # check exist or not, the data fetched from database
         if user:
-            # add the user to session
-            session['employee_no'] = employee_no
-            session['password'] = password
-            output = {'employee_no': employee_no}
-            res = {'message': 'success', 'error': False, 'output': output}
+            # add jwt token
+            token = jwt.encode({'employee_no': employee_no}, app.secret_key, algorithm='HS256')
+            
+            full_name = user[2] + ' ' + user[3]
+            hire_date = user[5]
+            birth_date = user[1]
+            employee_no = user[0]
+            data = {'employee_no': employee_no, 'full_name': full_name, 'hire_date': hire_date, 'birth_date': birth_date}
+            
+            response = {'message': 'success', 'error': False, 'data': data, 'token': token}
             #return the user data fetched from database to frontend
-            return Response(json.dumps(res), status=200)
+            return Response(json.dumps(response), status=200)
         else:
             # return error message to frontend
             return Response(json.dumps({'message': 'Invalid email or password'}), status=401)

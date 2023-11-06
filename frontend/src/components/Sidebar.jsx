@@ -14,13 +14,24 @@ import {
   PowerIcon,
   CalendarIcon,
 } from "@heroicons/react/24/solid";
+import { Link } from 'react-router-dom';
+
+// ...
+
+<Typography variant="h5" color="blue-gray">
+  <Link to="/dashboard">Dashboard</Link>
+</Typography>
 
 export default function Sidebar() {
+  const handleLogout = () => {
+    localStorage.removeItem('employee_information');
+    localStorage.removeItem('token');
+  }
   return (
     <Card className="h-[calc(100vh-2rem)] w-full max-w-[20rem] p-4 shadow-xl shadow-blue-gray-900/5">
       <div className="mb-2 p-4">
         <Typography variant="h5" color="blue-gray">
-          Dashboard
+          <Link to="/dashboard">Dashboard</Link>
         </Typography>
       </div>
       <List>
@@ -39,20 +50,21 @@ export default function Sidebar() {
               />
             </svg>
           </ListItemPrefix>
-          Dashboard
+          <Link to="/dashboard">Dashboard</Link>
         </ListItem>
+
         <ListItem>
           <ListItemPrefix>
             <CalendarIcon className="h-5 w-5" />
           </ListItemPrefix>
-          Clock in/out
+          <Link to="/dashboard/clock">Clock In/Out</Link>
         </ListItem>
         
         <ListItem>
           <ListItemPrefix>
             <InboxIcon className="h-5 w-5" />
           </ListItemPrefix>
-          Messages
+          <Link to="/dashboard/message">Message</Link>
           <ListItemSuffix>
             <Chip
               value="14"
@@ -63,6 +75,7 @@ export default function Sidebar() {
             />
           </ListItemSuffix>
         </ListItem>
+
         <ListItem>
           <ListItemPrefix>
             <svg
@@ -80,7 +93,7 @@ export default function Sidebar() {
               />
             </svg>
           </ListItemPrefix>
-          Scheduling
+          <Link to="/dashboard/scheduling">Scheduling</Link>
         </ListItem>
 
         <ListItem>
@@ -100,20 +113,23 @@ export default function Sidebar() {
               />
             </svg>
           </ListItemPrefix>
-          Pay
+          <Link to="/dashboard/pay">Pay</Link>
         </ListItem>
+
         <ListItem>
           <ListItemPrefix>
             <Cog6ToothIcon className="h-5 w-5" />
           </ListItemPrefix>
-          Settings
+          <Link to="/dashboard/setting">Setting</Link>
         </ListItem>
+
         <ListItem>
           <ListItemPrefix>
             <PowerIcon className="h-5 w-5" />
           </ListItemPrefix>
-          Log Out
+          <Link to="/auth/login" onClick={handleLogout}>Logout</Link>
         </ListItem>
+
       </List>
     </Card>
   );

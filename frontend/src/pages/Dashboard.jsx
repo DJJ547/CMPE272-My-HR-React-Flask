@@ -1,17 +1,16 @@
 import React from "react";
-import { useSelector } from "react-redux";
 
 export default function Dashboard() {
-  const currentUser = useSelector((state) => state.user.value)
- 
+  const employee_information = JSON.parse(localStorage.getItem("employee_information"));
+
   return (
     <div>
       <div className="min-h-screen">
         <h1>Hi! Alpha Team.</h1>
-        {currentUser ? (
-          <h2>Hi! {currentUser} welcome back.</h2>
+        {employee_information? (
+          <h2>Hi! {employee_information.full_name} welcome back.</h2>
         ) : (
-          <h2>Loading...</h2>
+          <h2>error...</h2>
         )}
       </div>
     </div>

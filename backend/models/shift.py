@@ -1,7 +1,7 @@
 import datetime
 from datetime import timedelta
 
-from employee import Employee
+from models.employee import Employee
 
 
 class Shift:

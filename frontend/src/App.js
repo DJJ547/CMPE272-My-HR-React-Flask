@@ -7,6 +7,7 @@ import PageLayout from "./components/PageLayout";
 
 //pages
 import Dashboard from "./pages/Dashboard";
+import Clock from "./pages/Clock";
 import Test from "./pages/Test";
 import Login from "./pages/auth/Login";
 import Signup from "./pages/auth/Signup";
@@ -17,16 +18,17 @@ export default function App() {
       {/* <Header /> */}
       <Routes>
         <Route path="/test" element={<Test />} />
-      </Routes>
 
-      <Routes>
-        <Route path="/auth/login" element={<Login />} />
-        <Route path="/auth/signup" element={<Signup />} />
-        <Route path="/" element={<Navigate to="/auth/login" replace />} />
-      </Routes>
+        <Route>
+          <Route path="/auth/login" element={<Login />} />
+          <Route path="/auth/signup" element={<Signup />} />
+          <Route path="/" element={<Navigate to="/auth/login" replace />} />
+        </Route>
 
-      <Routes>
-        <Route path="/dashboard" element={<PageLayout><Dashboard /></PageLayout>} />
+        <Route>
+          <Route path="/dashboard" element={<PageLayout><Dashboard /></PageLayout>} />
+          <Route path="/clock" element={<PageLayout><Clock /></PageLayout>} />
+        </Route>
       </Routes>
     </div>
   );

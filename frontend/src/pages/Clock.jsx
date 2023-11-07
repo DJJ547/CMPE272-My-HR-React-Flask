@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { Number } from "../components/clock/Number";
-import { Word } from "../components/clock/Word";
+import { Number } from "../components/Clock/Number";
+import { Word } from "../components/Clock/Word";
 
 const days = ["SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"];
 

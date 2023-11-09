@@ -16,6 +16,18 @@ app = Flask(__name__)
 app.secret_key = os.urandom(24)
 CORS(app)
 
+# Test data table
+headings = ("Employee No.", "Salary", "Employment Start Date", "Employment End Date")
+data = (
+    (10001,60117,'1986-06-26','1987-06-26'),
+    (10001,62102,'1987-06-26','1988-06-25'),
+    (10001,66074,'1988-06-25','1989-06-25'),
+    (10001,66596,'1989-06-25','1990-06-25'),
+    (10001,66961,'1990-06-25','1991-06-25'),
+    (10001,71046,'1991-06-25','1992-06-24'),
+    (10001,74333,'1992-06-24','1993-06-24')
+)
+
 # MySQL configurations
 app.config['MYSQL_HOST'] = 'localhost'
 app.config['MYSQL_USER'] = 'root'
@@ -81,6 +93,10 @@ def signup():
             cur.close()
 
         return Response(json.dumps({'message': 'User registration successfully'}), status=200)
+    
+@app.route('/pay_table')
+def table():
+    return render_template('table.html', headings=headings, data=data)
 
 if __name__ == '__main__':
     app.run(debug=True)

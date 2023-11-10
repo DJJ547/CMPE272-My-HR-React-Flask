@@ -25,12 +25,12 @@ export default function Message() {
           Chatting with {otherUser}
         </div>
         <div className="flex-grow overflow-auto p-6" id="message_Box">
-          {/* Messages go here */}
           <MessageBox User={otherUser} messages="Hello" />
           <MessageBox_me
             User={me}
             messages="Hi i like your t shirt, so i bought one too"
           />
+          {/* Messages go here */}
           {components.map((Component, index) => (
             <div key={10}>{Component}</div>
           ))}

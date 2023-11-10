@@ -7,7 +7,6 @@ from flask import Flask, \
 from flask_cors import CORS
 
 from controller.clock import process_punch
-from models.employee import Employee
 app = Flask(__name__)
 
 CORS(app)

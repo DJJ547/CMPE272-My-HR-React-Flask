@@ -3,22 +3,22 @@ import { Number } from "../components/Clock/Number";
 import { Word } from "../components/Clock/Word";
 
 const days = ["SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"];
+const months = [
+  "Jan",
+  "Feb",
+  "Mar",
+  "Apr",
+  "May",
+  "Jun",
+  "Jul",
+  "Aug",
+  "Sep",
+  "Oct",
+  "Nov",
+  "Dec",
+];
 
 export default function Clock(h24 = true) {
-  const months = [
-    "Jan",
-    "Feb",
-    "Mar",
-    "Apr",
-    "May",
-    "Jun",
-    "Jul",
-    "Aug",
-    "Sep",
-    "Oct",
-    "Nov",
-    "Dec",
-  ];
   const [month, setMonth] = useState(0);
   const [date, setDate] = useState(0);
   const [year, setYear] = useState(0);
@@ -27,20 +27,29 @@ export default function Clock(h24 = true) {
   const [second, setSecond] = useState(0);
   const [day, setDay] = useState(0);
   const [pm, setPm] = useState(false);
-  const [output, setOutput] = useState("");
+  const [display, setDisplay] = useState("");
+  const [punchSucceed, setPunchSucceed] = useState(false);
+  const [showDisplay, setShowDisplay] = useState(false);
+
+  // function msToTime() {
+  //   const datetime = new Date();
+  //   let seconds = datetime.getSeconds();
+  //   let minutes = datetime.getMinutes();
+  //   let hours = datetime.getHours();
+
+  //   hours = hours < 10 ? "0" + hours : hours;
+  //   minutes = minutes < 10 ? "0" + minutes : minutes;
+  //   seconds = seconds < 10 ? "0" + seconds : seconds;
+
+  //   return hours + ":" + minutes + ":" + seconds;
+  // }
 
   function handlePunch(punchType) {
-    console.log(punchType)
-    // fetch("http://127.0.0.1:5000/test")
-    //   .then((response) => response.json())
-    //   .then((data) => {
-    //     console.log(data);
-    //     setOutput(data);
-    //   })
-    //   .catch((error) => console.error(error));
+    setShowDisplay(true);
+    console.log(punchType);
     const time = new Date();
     const currentTime = time.getTime();
-    console.log(currentTime)
+    console.log(currentTime);
 
     const options = {
       method: "POST",
@@ -56,7 +65,8 @@ export default function Clock(h24 = true) {
       .then((response) => response.json())
       .then((data) => {
         console.log(data);
-        setOutput(data.message);
+        setDisplay(data.message);
+        setPunchSucceed(!data.error);
       })
       .catch((error) => console.error(error));
   }
@@ -88,7 +98,7 @@ export default function Clock(h24 = true) {
   }, []);
 
   return (
-    <div>
+    <div className="">
       <div className="m-[10px] rounded-[10px] bg-[#0d1621] flex flex-col items-center overflow-hidden pl-[20px] pr-[20px] py-[20px]">
         <div className="space-x-3 text-[3rem]">
           <Word value={months[month - 1]} />
@@ -141,9 +151,20 @@ export default function Clock(h24 = true) {
           End Shift
         </button>
       </div>
-      <div className="flex w-full h-100 overflow-y-scroll bg-gray-200">
-        <h1>{output}</h1>
-      </div>
+
+      {showDisplay ? (
+        <div
+          className={`border-2 border-solid text-lg ${
+            punchSucceed
+              ? "border-green-500 text-green-500"
+              : "border-red-500 text-red-500"
+          } p-10`}
+        >
+          <p>{display}</p>
+        </div>
+      ) : (
+        <div></div>
+      )}
     </div>
   );
 }

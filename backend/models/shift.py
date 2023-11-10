@@ -1,8 +1,6 @@
 import datetime
 from datetime import timedelta
 
-from models.employee import Employee
-
 
 class Shift:
     def __init__(self, assigned_start_time, assigned_end_time):

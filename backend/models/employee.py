@@ -1,8 +1,33 @@
 import datetime
 from datetime import timedelta
+from sqlalchemy import create_engine, ForeignKey, Column, String, Integer, CHAR, DATE, Enum
+from sqlalchemy.ext.declarative import declarative_base
+from sqlalchemy.orm import sessionmaker
+
+# connect with database
+host = 'localhost'
+port = 3306
+username = 'root'
+# remember to replace @ sign with %40 for sqlalchemy to process if ur pw contains @
+password = 'Djj%4019950420'
+database = 'employees'
+# Connect to the database
+engine = create_engine("mysql+mysqlconnector://" + username + ":" + password + "@" + host + ":" + str(port) + "/" + database)
+
+Base = declarative_base()
 
 
-class Employee:
+class Employee(Base):
+
+    __tablename__ = "employees"
+
+    emp_no = Column("emp_no", Integer, primary_key=True)
+    first_name = Column("first_name", String)
+    last_name = Column("last_name", String)
+    birth_date = Column("birth_date", DATE)
+    gender = Column("gender", Enum)
+    hire_Date = Column("hire_date", DATE)
+
     def __init__(self, employee_no, first_name, last_name, birthdate, gender, hire_date, shifts):
         self.employee_no = employee_no
         self.first_name = first_name
@@ -11,6 +36,11 @@ class Employee:
         self.gender = gender
         self.hire_date = hire_date
         self.shifts = shifts
+
+    # this method tells python how to print objects of this class
+    def __repr__(self):
+        return "<User(first_name='%s', last_name='%s', employee_number='%s')>" % (
+                            self.first_name, self.last_name, self.employee_no)
 
     def start_shift(self, clock_in_time):
         res = {}

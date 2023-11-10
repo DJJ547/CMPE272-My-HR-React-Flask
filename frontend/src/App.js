@@ -8,6 +8,7 @@ import PageLayout from "./components/PageLayout";
 //pages
 import Dashboard from "./pages/Dashboard";
 import Clock from "./pages/Clock";
+import Scheduling from "./pages/Scheduling";
 import Test from "./pages/Test";
 import Login from "./pages/auth/Login";
 import Signup from "./pages/auth/Signup";
@@ -28,6 +29,7 @@ export default function App() {
         <Route>
           <Route path="/dashboard" element={<PageLayout><Dashboard /></PageLayout>} />
           <Route path="/clock" element={<PageLayout><Clock /></PageLayout>} />
+          <Route path="/schedule" element={<PageLayout><Scheduling /></PageLayout>} />
         </Route>
       </Routes>
     </div>

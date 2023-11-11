@@ -1,5 +1,5 @@
 *.log
 backend/venv/
 backend/.env
-backend/app/.env
+backend/backend1/.env
 backend/__pycache__

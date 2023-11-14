@@ -7,6 +7,9 @@ from flask import Flask, \
     request, \
     json
 from datetime import timedelta
+from config import app, socketio
+from routes.auth import auth
+from routes.clock import Clock
 from flask_cors import CORS
 from flask_mysqldb import MySQL
 import os
@@ -14,6 +17,7 @@ import os
 
 app = Flask(__name__)
 app.secret_key = os.urandom(24)
+
 CORS(app)
 
 # Test data table
@@ -98,5 +102,8 @@ def signup():
 def table():
     return render_template('table.html', headings=headings, data=data)
 
+app.register_blueprint(auth)
+app.register_blueprint(Clock)
+
 if __name__ == '__main__':
-    app.run(debug=True)
+    socketio.run(app, debug=True)

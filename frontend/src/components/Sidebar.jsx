@@ -8,14 +8,25 @@ import {
   Chip,
 } from "@material-tailwind/react";
 import {
-  UserCircleIcon,
   Cog6ToothIcon,
   InboxIcon,
   PowerIcon,
   CalendarIcon,
 } from "@heroicons/react/24/solid";
+import { Link } from 'react-router-dom';
+import Logout from "../pages/auth/logout";
+
+// ...
+
+<Typography variant="h5" color="blue-gray">
+  <Link to="/dashboard">Dashboard</Link>
+</Typography>
 
 export default function Sidebar() {
+  const handleClick = (path) => () => {
+    window.location.href = path;
+  };
+
   return (
     <Card className="h-[calc(100vh-2rem)] w-full max-w-[20rem] p-4 shadow-xl shadow-blue-gray-900/5">
       <div className="mb-2 p-4">
@@ -24,7 +35,7 @@ export default function Sidebar() {
         </Typography>
       </div>
       <List>
-        <ListItem>
+        <ListItem onClick={handleClick("/dashboard")}>
           <ListItemPrefix>
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -41,18 +52,19 @@ export default function Sidebar() {
           </ListItemPrefix>
           Dashboard
         </ListItem>
-        <ListItem>
+
+        <ListItem onClick={handleClick("/dashboard/clock")}>
           <ListItemPrefix>
             <CalendarIcon className="h-5 w-5" />
           </ListItemPrefix>
-          Clock in/out
+          Clock In/Out
         </ListItem>
         
-        <ListItem>
+        <ListItem onClick={handleClick("/dashboard/message")}>
           <ListItemPrefix>
             <InboxIcon className="h-5 w-5" />
           </ListItemPrefix>
-          Messages
+          Message
           <ListItemSuffix>
             <Chip
               value="14"
@@ -63,7 +75,8 @@ export default function Sidebar() {
             />
           </ListItemSuffix>
         </ListItem>
-        <ListItem>
+
+        <ListItem onClick={handleClick("/dashboard/scheduling")}>
           <ListItemPrefix>
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -83,36 +96,38 @@ export default function Sidebar() {
           Scheduling
         </ListItem>
 
-        <ListItem>
+        <ListItem onClick={handleClick("/dashboard/pay")}>
           <ListItemPrefix>
             <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
               viewBox="0 0 24 24"
-              stroke-width="1.5"
+              strokeWidth="1.5"
               stroke="currentColor"
-              class="w-6 h-6"
+              className="w-6 h-6"
             >
               <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
+                strokeLinecap="round"
+                strokeLinejoin="round"
                 d="M12 6v12m-3-2.818l.879.659c1.171.879 3.07.879 4.242 0 1.172-.879 1.172-2.303 0-3.182C13.536 12.219 12.768 12 12 12c-.725 0-1.45-.22-2.003-.659-1.106-.879-1.106-2.303 0-3.182s2.9-.879 4.006 0l.415.33M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
               />
             </svg>
           </ListItemPrefix>
           Pay
         </ListItem>
-        <ListItem>
+
+        <ListItem onClick={handleClick("/dashboard/setting")}>
           <ListItemPrefix>
             <Cog6ToothIcon className="h-5 w-5" />
           </ListItemPrefix>
-          Settings
+          Setting
         </ListItem>
-        <ListItem>
+
+        <ListItem onClick={Logout}>
           <ListItemPrefix>
             <PowerIcon className="h-5 w-5" />
           </ListItemPrefix>
-          Log Out
+          Log out
         </ListItem>
       </List>
     </Card>

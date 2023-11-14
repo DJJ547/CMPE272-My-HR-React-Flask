@@ -18,7 +18,7 @@ def main():
     shifts = [first_shift, second_shift]
 
     # Employee attributes in order: employee_no, first_name, last_name, birthdate, gender, hire_date, shifts
-    em1 = Employee(1, 'David', 'Dai', datetime.datetime(1994, 5, 20), 'M', datetime.datetime(2023, 9, 10), shifts)
+    # em1 = Employee(1, 'David', 'Dai', datetime.datetime(1994, 5, 20), 'M', datetime.datetime(2023, 9, 10), shifts)
 
     # try clock in 6 mins early to the first shift
     # clock_in_time = datetime.datetime(2023, 10, 27, 16, 54)
@@ -31,10 +31,12 @@ def main():
     # em1.shifts[0].print_all_shift_info()
 
     # try clock in 35 mins late to the first shift
-    clock_in_time = datetime.datetime(2023, 10, 27, 17, 35)
-    em1.start_shift(clock_in_time)
-    em1.shifts[0].print_all_shift_info()
+    # clock_in_time = datetime.datetime(2023, 10, 27, 17, 35)
+    # em1.start_shift(clock_in_time)
+    # em1.shifts[0].print_all_shift_info()
 
+    em1 = Employee(1, 'David', 'Dai', datetime.datetime(1994, 5, 20), 'M', datetime.datetime(2023, 9, 10), shifts)
+    print(em1)
 
 if __name__ == '__main__':
     main()

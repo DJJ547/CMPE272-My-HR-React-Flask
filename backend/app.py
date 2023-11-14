@@ -20,9 +20,18 @@ app.secret_key = os.urandom(24)
 
 CORS(app)
 
+# MySQL configurations
+app.config['MYSQL_HOST'] = 'localhost'
+app.config['MYSQL_USER'] = 'root'
+#app.config['MYSQL_PASSWORD'] = 'fang'
+app.config['MYSQL_PASSWORD'] = 'password'
+app.config['MYSQL_DB'] = 'employees'
+
+mysql = MySQL(app)
+
 # Test data table
 headings = ("Employee No.", "Salary", "Employment Start Date", "Employment End Date")
-data = (
+""" data = (
     (10001,60117,'1986-06-26','1987-06-26'),
     (10001,62102,'1987-06-26','1988-06-25'),
     (10001,66074,'1988-06-25','1989-06-25'),
@@ -30,15 +39,7 @@ data = (
     (10001,66961,'1990-06-25','1991-06-25'),
     (10001,71046,'1991-06-25','1992-06-24'),
     (10001,74333,'1992-06-24','1993-06-24')
-)
-
-# MySQL configurations
-app.config['MYSQL_HOST'] = 'localhost'
-app.config['MYSQL_USER'] = 'root'
-app.config['MYSQL_PASSWORD'] = 'fang'
-app.config['MYSQL_DB'] = 'employees'
-
-mysql = MySQL(app)
+) """
 
 @app.route('/')
 def home():
@@ -100,7 +101,16 @@ def signup():
     
 @app.route('/pay_table')
 def table():
+    cur = mysql.connection.cursor()
+
+    #cur.execute("SELECT COLUMN_NAME FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA = 'employees.salaries' AND TABLE_NAME = 'employees.salaries'")
+    #headings = cur.fetchall()
+
+    cur.execute("SELECT * FROM employees.salaries")
+    data = cur.fetchall()
+
     return render_template('table.html', headings=headings, data=data)
+    #return render_template('table.html', data=data)
 
 app.register_blueprint(auth)
 app.register_blueprint(Clock)

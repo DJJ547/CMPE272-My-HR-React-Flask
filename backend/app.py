@@ -30,7 +30,7 @@ app.config['MYSQL_DB'] = 'employees'
 mysql = MySQL(app)
 
 # Test data table
-headings = ("Employee No.", "Salary", "Employment Start Date", "Employment End Date")
+""" headings = ("Employee No.", "Salary", "Employment Start Date", "Employment End Date") """
 """ data = (
     (10001,60117,'1986-06-26','1987-06-26'),
     (10001,62102,'1987-06-26','1988-06-25'),
@@ -108,6 +108,11 @@ def table():
 
     cur.execute("SELECT * FROM employees.salaries")
     data = cur.fetchall()
+
+    """ columns = cur.description 
+    headings = [{columns[index][0]:column for index, column in enumerate(value)} for value in cur.fetchall()] """
+    
+    headings = [i[0] for i in cur.description]
 
     return render_template('table.html', headings=headings, data=data)
     #return render_template('table.html', data=data)

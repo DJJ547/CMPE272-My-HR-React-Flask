@@ -29,9 +29,9 @@ app.config['MYSQL_DB'] = 'employees'
 
 mysql = MySQL(app)
 
-# Test data table
+# Test/sample data table
 """ headings = ("Employee No.", "Salary", "Employment Start Date", "Employment End Date") """
-""" data = (
+""" data = {
     (10001,60117,'1986-06-26','1987-06-26'),
     (10001,62102,'1987-06-26','1988-06-25'),
     (10001,66074,'1988-06-25','1989-06-25'),
@@ -39,7 +39,7 @@ mysql = MySQL(app)
     (10001,66961,'1990-06-25','1991-06-25'),
     (10001,71046,'1991-06-25','1992-06-24'),
     (10001,74333,'1992-06-24','1993-06-24')
-) """
+} """
 
 @app.route('/')
 def home():
@@ -116,6 +116,12 @@ def table():
 
     return render_template('table.html', headings=headings, data=data)
     #return render_template('table.html', data=data)
+
+@auth.route('/salary')
+def getSalary():
+    output = 'Welcome employee! This is a test'
+    # return Response(json.dumps(output), status=200)
+    return output
 
 app.register_blueprint(auth)
 app.register_blueprint(Clock)

@@ -13,7 +13,8 @@ class MyApp(Flask):
         self.secret_key = os.urandom(24)
         self.config['MYSQL_HOST'] = 'localhost'
         self.config['MYSQL_USER'] = 'root'
-        self.config['MYSQL_PASSWORD'] = 'fang'
+        #self.config['MYSQL_PASSWORD'] = 'fang'
+        self.config['MYSQL_PASSWORD'] = 'password'
         self.config['MYSQL_DB'] = 'employees'
         self.mysql = MySQL(self)
         socketio.init_app(self)

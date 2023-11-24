@@ -1,0 +1,77 @@
+import React, { useEffect, useState } from "react";
+import io from "socket.io-client";
+import MessageBox from "./MessageBox";
+import MessageBox_me from "./MessageBox_me";
+
+export default function MessageOutline() {
+  const socket = io("http://localhost:5000");
+  const [otherUser, setotherUser] = useState(10002);
+  const me = JSON.parse(localStorage.getItem("employee_information"));
+
+  const [components, setComponents] = useState([]);
+  //current user's messages
+  const handleSend = (e) => {
+    e.preventDefault();
+
+    const message = {
+        sender: me.employee_no,
+        receiver: otherUser,
+        message: e.target[0].value,
+    };
+    console.log(message);
+    socket.emit("message", message);
+    
+    const newComponent = React.createElement(MessageBox_me, {
+      User: me.full_name,
+      messages: e.target[0].value,
+    });
+
+    setComponents([...components, newComponent]);
+    e.target[0].value = "";
+  };
+
+  //listen for other user's message
+  useEffect(() => {
+    socket.on('message', (data) => {
+        const newComponent = React.createElement(MessageBox, {
+            User: otherUser,
+            messages: data,
+          });
+        setComponents([...components, newComponent]);
+    });
+  }, []);
+
+  return (
+    <div className="p-12">
+      <div className="flex flex-col h-full bg-white rounded-md shadow-md w-[60%] mx-auto">
+        <div className="p-4 bg-indigo-500 text-white font-semibold rounded-t-md">
+          Chatting with {otherUser}
+        </div>
+        <div className="flex-grow overflow-auto p-6 h-[600px]" id="message_Box">
+            <MessageBox User={otherUser} messages="Hello" />
+            <MessageBox_me
+                User={me.full_name}
+                messages="Hi i like your t shirt, so i bought one too"
+            />
+            {/* Messages go here */}
+            {components.map((Component, index) => (
+                <div key={index}>{Component}</div>
+            ))}
+            {/* More messages... */}
+        </div>
+
+        <div className="p-4 border-t border-gray-200">
+          <form className="flex" onSubmit={handleSend}>
+            <input
+              className="flex-grow rounded-l-md border-gray-300 border p-2 outline-none"
+              placeholder="Type a message"
+            />
+            <button className="bg-indigo-500 text-white rounded-r-md px-4">
+              Send
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  );
+}

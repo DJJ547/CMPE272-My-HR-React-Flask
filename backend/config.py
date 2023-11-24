@@ -1,8 +1,7 @@
 from flask import Flask, Blueprint, request, Response, jsonify, json
 from flask_mysqldb import MySQL
 from flask_cors import CORS
-from flask_socketio import SocketIO
-from routes.Message import socketio
+from socketio_init import socketio
 import os
 import sys
 

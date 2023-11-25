@@ -4,9 +4,16 @@ from flask_cors import CORS
 from flask_mysqldb import MySQL
 import os
 
-Pay = Blueprint('Pay}', __name__)
+Pay = Blueprint('Pay', __name__)
 
-@auth.route('/dashboard/pay', methods=['POST'])
+@Pay.route('/pay', methods=['GET'])
 def getSalary():
-    output = 'Welcome employee! This is a test'
+    cur = app.mysql.connection.cursor()
+
+    cur.execute("SELECT salary FROM salaries WHERE emp_no = %s", (10001,))
+    data = cur.fetchall()
+    
+    cur.close()
+
+    output = data
     return Response(json.dumps(output), status=200)

@@ -10,6 +10,7 @@ from datetime import timedelta
 from config import app, socketio
 from routes.auth import auth
 from routes.clock import Clock
+from routes.pay import Pay
 from flask_cors import CORS
 from flask_mysqldb import MySQL
 import os
@@ -103,28 +104,22 @@ def signup():
 def table():
     cur = mysql.connection.cursor()
 
-    #cur.execute("SELECT COLUMN_NAME FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA = 'employees.salaries' AND TABLE_NAME = 'employees.salaries'")
-    #headings = cur.fetchall()
-
     cur.execute("SELECT * FROM employees.salaries")
     data = cur.fetchall()
-
-    """ columns = cur.description 
-    headings = [{columns[index][0]:column for index, column in enumerate(value)} for value in cur.fetchall()] """
     
     headings = [i[0] for i in cur.description]
 
     return render_template('table.html', headings=headings, data=data)
-    #return render_template('table.html', data=data)
 
-@auth.route('/salary')
+""" @app.route('/pay')
 def getSalary():
     output = 'Welcome employee! This is a test'
     # return Response(json.dumps(output), status=200)
-    return output
+    return Response(json.dumps(output), status=200) """
 
 app.register_blueprint(auth)
 app.register_blueprint(Clock)
+app.register_blueprint(Pay)
 
 if __name__ == '__main__':
     socketio.run(app, debug=True)

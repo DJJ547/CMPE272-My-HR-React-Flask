@@ -9,7 +9,8 @@ from flask import Flask, \
 from config import app, socketio
 from routes.auth import auth
 from routes.clock import Clock
-
+from routes.salary import salary
+# from routes.infoCard import infoCard
 
 @app.route('/test')
 def test():
@@ -19,6 +20,8 @@ def test():
 # authentication routes
 app.register_blueprint(auth)
 app.register_blueprint(Clock)
+app.register_blueprint(salary)
+# app.register_blueprint(infoCard)
 
 if __name__ == '__main__':
     socketio.run(app, debug=True)

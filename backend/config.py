@@ -1,7 +1,6 @@
 from flask import Flask, Blueprint, request, Response, jsonify, json
 from flask_mysqldb import MySQL
 from flask_cors import CORS
-from socketio_init import socketio
 import os
 import sys
 
@@ -15,7 +14,6 @@ class MyApp(Flask):
         self.config['MYSQL_PASSWORD'] = 'fang'
         self.config['MYSQL_DB'] = 'employees'
         self.mysql = MySQL(self)
-        socketio.init_app(self)
         CORS(self)
 
 

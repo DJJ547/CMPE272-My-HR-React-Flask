@@ -65,15 +65,6 @@ export default function Sidebar() {
             <InboxIcon className="h-5 w-5" />
           </ListItemPrefix>
           Message
-          <ListItemSuffix>
-            <Chip
-              value="14"
-              size="sm"
-              variant="ghost"
-              color="blue-gray"
-              className="rounded-full"
-            />
-          </ListItemSuffix>
         </ListItem>
 
         <ListItem onClick={handleClick("/dashboard/scheduling")}>

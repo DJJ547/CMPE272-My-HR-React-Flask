@@ -3,6 +3,7 @@ from flask_mysqldb import MySQL
 from flask_cors import CORS
 from flask_socketio import SocketIO
 from routes.Message import socketio
+import redis
 import os
 import sys
 
@@ -19,6 +20,8 @@ class MyApp(Flask):
         self.mysql = MySQL(self)
         socketio.init_app(self)
         CORS(self)
+        self.redis = redis.Redis(host='localhost', port=6379, decode_responses=True)
+
 
 
 app = MyApp(__name__)

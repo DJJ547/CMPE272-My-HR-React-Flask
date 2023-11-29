@@ -8,12 +8,20 @@ Pay = Blueprint('Pay', __name__)
 
 @Pay.route('/pay', methods=['GET'])
 def getSalary():
+    search = app.redis.get('employee_no')
+
+    print(search)
+
     cur = app.mysql.connection.cursor()
 
-    cur.execute("SELECT salary FROM salaries WHERE emp_no = %s", (10001,))
+    cur.execute("SELECT salary FROM salaries WHERE emp_no = %s", (search,))
     data = cur.fetchall()
     
     cur.close()
 
-    output = data
+    output = list(data)
+
+    """ print(type(data))
+    print(data) """
+
     return Response(json.dumps(output), status=200)

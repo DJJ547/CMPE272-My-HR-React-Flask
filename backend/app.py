@@ -54,7 +54,7 @@ def test():
 
 
 # authentication routes
-@app.route('/auth/login', methods=['POST'])
+""" @app.route('/auth/login', methods=['POST'])
 def login():
     if request.method == 'POST':
         # get user input
@@ -99,7 +99,7 @@ def signup():
             mysql.connection.commit()
             cur.close()
 
-        return Response(json.dumps({'message': 'User registration successfully'}), status=200)
+        return Response(json.dumps({'message': 'User registration successfully'}), status=200) """
     
 @app.route('/pay_table')
 def table():

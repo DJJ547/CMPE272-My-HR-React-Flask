@@ -38,13 +38,13 @@ export default function Scheduling() {
   const [selectDate, setSelectDate] = useState(currentDate);
   const [schedules, setSchedules] = useState(schedule);
   return (
-    <div className="flex gap-10 sm:divide-x justify-center sm:w-2/3 mx-auto h-screen items-center sm:flex-row flex-col p-5">
+    <div className="flex gap-10 sm:divide-x justify-center mx-auto h-screen items-center sm:flex-row flex-col p-10">
       <div className="w-full h-full">
         <div className="flex justify-between items-center">
           <h1 className="select-none font-semibold">
             {months[today.month()]}, {today.year()}
           </h1>
-          <div className="flex gap-10 items-center ">
+          <div className="flex items-center ">
             <GrFormPrevious
               className="w-5 h-5 cursor-pointer hover:scale-105 transition-all"
               onClick={() => {
@@ -86,17 +86,16 @@ export default function Scheduling() {
               return (
                 <div
                   key={index}
-                  className="p-1 text-center h-32 grid place-content-start text-sm border-solid border-2 border-gray-400"
+                  className={cn(currentMonth ? "" : "text-gray-400", today ? "bg-gray-500 text-white" : "", "transition ease-in-out delay-50 hover:bg-gray-500 hover:text-white cursor-pointer file:p-1 text-center h-32 grid place-content-start text-sm border-solid border-2 border-gray-400")}
                 >
                   <h1
                     className={cn(
-                      currentMonth ? "" : "text-gray-400",
-                      today ? "bg-red-600 text-white" : "",
+                      
                       selectDate.toDate().toDateString() ===
                         date.toDate().toDateString()
                         ? "bg-black text-white"
                         : "",
-                      "h-10 w-10 rounded-full grid place-content-center hover:bg-black hover:text-white transition-all cursor-pointer select-none"
+                      "h-10 w-10 rounded-full grid place-content-center transition-all select-none"
                     )}
                     onClick={() => {
                       setSelectDate(date);

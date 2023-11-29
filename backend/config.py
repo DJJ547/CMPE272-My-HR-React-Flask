@@ -3,6 +3,7 @@ from flask_mysqldb import MySQL
 from flask_cors import CORS
 from flask_socketio import SocketIO
 from routes.Message import socketio
+import redis
 import os
 import sys
 
@@ -13,8 +14,11 @@ class MyApp(Flask):
         self.secret_key = os.urandom(24)
         self.config['MYSQL_HOST'] = 'localhost'
         self.config['MYSQL_USER'] = 'root'
-        self.config['MYSQL_PASSWORD'] = 'fang'
+        self.config['MYSQL_PASSWORD'] = 'Djj@19950420'
         self.config['MYSQL_DB'] = 'employees'
+        # Configure Redis for storing the session data on the server-side
+        # self.redis_client = FlaskRedis(self)
+        self.redis = redis.Redis(host='localhost', port=6379, decode_responses=True)
         self.mysql = MySQL(self)
         socketio.init_app(self)
         CORS(self)

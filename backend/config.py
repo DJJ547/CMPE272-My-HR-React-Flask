@@ -17,6 +17,9 @@ class MyApp(Flask):
         #self.config['MYSQL_PASSWORD'] = 'fang'
         self.config['MYSQL_PASSWORD'] = 'password'
         self.config['MYSQL_DB'] = 'employees'
+        # Configure Redis for storing the session data on the server-side
+        # self.redis_client = FlaskRedis(self)
+        self.redis = redis.Redis(host='localhost', port=6379, decode_responses=True)
         self.mysql = MySQL(self)
         socketio.init_app(self)
         CORS(self)

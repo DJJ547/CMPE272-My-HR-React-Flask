@@ -3,10 +3,11 @@ from config import app
 from controller.clock import process_punch
 
 
-Clock = Blueprint('Clock', __name__)
+clock = Blueprint('clock', __name__)
 
-@Clock.route('/dashboard/clock', methods=['POST'])
-def clock():
+
+@clock.route('/dashboard/clock', methods=['POST'])
+def Clock():
     punch_type = request.json.get('type')
     print(punch_type)
     punch_time = request.json.get('time')

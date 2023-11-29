@@ -9,7 +9,7 @@ from flask import Flask, \
 from datetime import timedelta
 from config import app, socketio
 from routes.auth import auth
-from routes.clock import Clock
+from routes.Clock import clock
 from routes.pay import Pay
 from flask_cors import CORS
 from flask_mysqldb import MySQL
@@ -42,15 +42,16 @@ mysql = MySQL(app)
     (10001,74333,'1992-06-24','1993-06-24')
 } """
 
-@app.route('/')
+""" @app.route('/')
 def home():
     return render_template('index.html')
-
+ """
 
 @app.route('/test')
 def test():
     output = 'testing'
     return Response(json.dumps(output), status=200)
+
 
 # authentication routes
 @app.route('/auth/login', methods=['POST'])
@@ -118,7 +119,7 @@ def getSalary():
     return Response(json.dumps(output), status=200) """
 
 app.register_blueprint(auth)
-app.register_blueprint(Clock)
+app.register_blueprint(clock)
 app.register_blueprint(Pay)
 
 if __name__ == '__main__':

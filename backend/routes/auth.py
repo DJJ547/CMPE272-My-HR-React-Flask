@@ -17,7 +17,6 @@ def login():
         cur.execute("SELECT * FROM employees WHERE emp_no = %s AND password = %s", (employee_no, password))
         user = cur.fetchone()
         cur.close()
-        print("testing")
 
         # check exist or not, the data fetched from database
         if user:
@@ -30,7 +29,6 @@ def login():
             employee_no = user[0]
 
             app.redis.set('employee_no', employee_no)
-            print(app.redis.get('employee_no'))
 
             data = {'employee_no': employee_no, 'full_name': full_name, 'hire_date': hire_date, 'birth_date': birth_date}
             

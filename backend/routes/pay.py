@@ -6,6 +6,14 @@ import os
 
 Pay = Blueprint('Pay', __name__)
 
+""" calc_salary = { "current_salary": 315, "hours": 8 }
+monthly_income = {
+    "january": 2000,
+    "febuary": 1540,
+    "march": 5631,
+    "april": 4141
+} """
+
 @Pay.route('/pay', methods=['GET'])
 def getSalary():
     search = app.redis.get('employee_no')

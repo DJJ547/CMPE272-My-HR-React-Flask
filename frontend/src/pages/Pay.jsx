@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Card, Typography } from "@material-tailwind/react";
 
-const TABLE_HEAD = ["Past Salaries"]
+const TABLE_HEAD = ["Monthly Salary"]
 
 export default function Pay() {
 

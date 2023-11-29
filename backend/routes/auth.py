@@ -1,6 +1,7 @@
-from flask import Blueprint, request, Response, jsonify, json
+from flask import Blueprint, request, Response, jsonify, json, session
 import jwt
 from config import app
+from models.employee import Employee
 # authentication routes
 auth = Blueprint('auth', __name__)
 
@@ -21,11 +22,14 @@ def login():
         if user:
             # add jwt token
             token = jwt.encode({'employee_no': employee_no}, app.secret_key, algorithm='HS256')
-            
+
             full_name = user[2] + ' ' + user[3]
             hire_date = user[5]
             birth_date = user[1]
             employee_no = user[0]
+
+            app.redis.set('employee_no', employee_no)
+
             data = {'employee_no': employee_no, 'full_name': full_name, 'hire_date': hire_date, 'birth_date': birth_date}
             
             response = {'message': 'success', 'error': False, 'data': data, 'token': token}

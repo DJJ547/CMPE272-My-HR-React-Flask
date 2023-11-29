@@ -17,9 +17,10 @@ def test():
     output = 'testing'
     return Response(json.dumps(output), status=200)
 
+
 # authentication routes
 app.register_blueprint(auth)
-app.register_blueprint(Clock)
+app.register_blueprint(clock)
 app.register_blueprint(salary)
 # app.register_blueprint(infoCard)
 

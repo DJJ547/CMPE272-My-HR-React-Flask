@@ -9,7 +9,7 @@ from flask import Flask, \
 from config import app, socketio
 from routes.auth import auth
 from routes.Clock import clock
-
+from routes.salary import salary
 
 @app.route('/test')
 def test():

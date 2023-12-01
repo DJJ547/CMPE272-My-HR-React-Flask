@@ -8,20 +8,20 @@ from flask import Flask, \
     json
 from config import app, socketio
 from routes.auth import auth
-from routes.clock import Clock
-from routes.salary import salary
-# from routes.infoCard import infoCard
+from routes.Clock import clock
+
 
 @app.route('/test')
 def test():
     output = 'testing'
     return Response(json.dumps(output), status=200)
 
+
 # authentication routes
 app.register_blueprint(auth)
-app.register_blueprint(Clock)
 app.register_blueprint(salary)
 # app.register_blueprint(infoCard)
+app.register_blueprint(clock)
 
 if __name__ == '__main__':
     socketio.run(app, debug=True)

@@ -19,6 +19,8 @@ def test():
 
 # authentication routes
 app.register_blueprint(auth)
+app.register_blueprint(salary)
+# app.register_blueprint(infoCard)
 app.register_blueprint(clock)
 
 if __name__ == '__main__':

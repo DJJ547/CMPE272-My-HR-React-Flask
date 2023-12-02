@@ -8,9 +8,8 @@ salary = Blueprint('salary', __name__)
 def salaryGraph():
         #open database connection, and fetch data from database
         cur = app.mysql.connection.cursor()
-#         emp_no = session['employee_no']
-#         print(emp_no)
-        cur.execute("SELECT DATE_FORMAT(from_date, '%%Y') as year, salary FROM salaries WHERE emp_no = %s", (10001,))
+        employee_no = app.redis.get('employee_no')
+        cur.execute("SELECT DATE_FORMAT(from_date, '%%Y') as year, salary FROM salaries WHERE emp_no = %s", (employee_no,))
 
         salaries_data = cur.fetchall()
         cur.close()

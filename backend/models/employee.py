@@ -40,7 +40,9 @@ class Employee:
         self.birthdate = user[1]
         self.gender = user[4]
         self.hire_date = user[5]
-        self.shifts = self.get_shifts_from_db()
+        self.profile_pic = user[6]
+        self.motto = user[7]
+        # self.shifts = self.get_shifts_from_db()
 
     # this method tells python how to print objects of this class
     def __repr__(self):
@@ -101,3 +103,17 @@ class Employee:
                 response['error'] = result[0]
                 response['message'] = result[1]
         return response
+
+    def update_profile(self, motto, profile_pic_url):
+        conn = app.mysql.connection
+        cur = conn.cursor()
+        try:
+            cur.execute("UPDATE employees SET motto = %s, profile_pic = %s WHERE emp_no = %s",
+                        (motto, profile_pic_url, self.employee_no))
+            conn.commit()
+            return {'error': False, 'message': 'Profile updated successfully'}
+        except Exception as e:
+            conn.rollback()
+            return {'error': True, 'message': str(e)}
+        finally:
+            cur.close()

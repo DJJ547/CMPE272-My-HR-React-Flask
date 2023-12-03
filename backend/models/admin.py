@@ -11,6 +11,9 @@ class Admin:
         result = cur.fetchall()
         cur.close()
         self.managers = [x[0] for x in result]
+    
+    def is_manager(self, emp_no):
+        return emp_no in self.managers
 
 admin = None
 with app.app_context():

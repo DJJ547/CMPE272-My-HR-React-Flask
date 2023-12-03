@@ -27,7 +27,9 @@ def login():
             hire_date = user[5]
             birth_date = user[1]
             employee_no = user[0]
-            data = {'employee_no': employee_no, 'full_name': full_name, 'hire_date': hire_date, 'birth_date': birth_date}
+            is_manager = admin.is_manager(employee_no)
+
+            data = {'employee_no': employee_no, 'full_name': full_name, 'hire_date': hire_date, 'birth_date': birth_date, 'is_manager': is_manager}
             
             response = {'message': 'success', 'error': False, 'data': data, 'token': token}
             #return the user data fetched from database to frontend

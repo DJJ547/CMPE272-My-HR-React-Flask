@@ -13,18 +13,11 @@ import {
   PowerIcon,
   CalendarIcon,
 } from "@heroicons/react/24/solid";
-import { Link } from "react-router-dom";
-import Logout from "../pages/auth/Logout";
+import Logout from "../pages/auth/logout";
 
 // ...
-
-<Typography variant="h5" color="blue-gray">
-  <Link to="/dashboard">Dashboard</Link>
-</Typography>;
-
 export default function Sidebar() {
-  const state = localStorage.getItem('state');
-  console.log(state);
+  const is_manager = JSON.parse(localStorage.getItem('employee_information')).is_manager;
   const handleClick = (path) => () => {
     window.location.href = path;
   };
@@ -54,6 +47,13 @@ export default function Sidebar() {
           </ListItemPrefix>
           Dashboard
         </ListItem>
+        
+        {is_manager && (<ListItem onClick={handleClick("/dashboard/admin")}>
+          <ListItemPrefix>
+          <img src="https://icons.veryicon.com/png/o/miscellaneous/yuanql/icon-admin.png" className="w-6 h-6"/>
+          </ListItemPrefix>
+          Admin
+        </ListItem>)}
 
         <ListItem onClick={handleClick("/dashboard/clock")}>
           <ListItemPrefix>
@@ -67,15 +67,6 @@ export default function Sidebar() {
             <InboxIcon className="h-5 w-5" />
           </ListItemPrefix>
           Message
-          <ListItemSuffix>
-            <Chip
-              value="14"
-              size="sm"
-              variant="ghost"
-              color="blue-gray"
-              className="rounded-full"
-            />
-          </ListItemSuffix>
         </ListItem>
 
         <ListItem onClick={handleClick("/dashboard/scheduling")}>

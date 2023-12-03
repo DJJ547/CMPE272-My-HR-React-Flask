@@ -7,6 +7,9 @@ export default function MessageBox({ User, messages }) {
         <div className="font-semibold text-right p-1">{User}</div>
         <div className="text-sm text-gray-600 shadow p-2 round">{messages}</div>
       </div>
+      <div className="mb-4">
+        <img src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png" className="rounded-full h-16 w-16 inline-block p-2" />
+      </div>
     </div>
   );
 }

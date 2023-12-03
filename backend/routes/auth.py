@@ -6,6 +6,7 @@ from models.manager import Manager
 from models.admin import Admin
 from utils import date_convertor
 # authentication routes
+from models.admin import admin
 auth = Blueprint('auth', __name__)
 
 @auth.route('/auth/login', methods=['POST'])

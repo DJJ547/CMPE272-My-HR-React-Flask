@@ -20,7 +20,6 @@ class MyApp(Flask):
         # self.redis_client = FlaskRedis(self)
         self.redis = redis.Redis(host='localhost', port=6379, decode_responses=True)
         self.mysql = MySQL(self)
-        socketio.init_app(self)
         CORS(self)
 
 

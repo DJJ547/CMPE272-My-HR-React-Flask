@@ -2,6 +2,7 @@ from flask import Blueprint, request, Response, jsonify, json
 import jwt
 from config import app
 # authentication routes
+from models.admin import admin
 auth = Blueprint('auth', __name__)
 
 @auth.route('/auth/login', methods=['POST'])

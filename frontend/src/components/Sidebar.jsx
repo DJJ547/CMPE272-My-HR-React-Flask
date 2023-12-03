@@ -113,7 +113,12 @@ export default function Sidebar() {
           </ListItemPrefix>
           Setting
         </ListItem>
-
+        <ListItem onClick={handleClick("/dashboard/admin")}>
+          <ListItemPrefix>
+          <img src="https://icons.veryicon.com/png/o/miscellaneous/yuanql/icon-admin.png" className="w-6 h-6"/>
+          </ListItemPrefix>
+          Admin
+        </ListItem>
         <ListItem onClick={Logout}>
           <ListItemPrefix>
             <PowerIcon className="h-5 w-5" />

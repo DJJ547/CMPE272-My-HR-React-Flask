@@ -19,6 +19,7 @@ import Message from "./pages/Message";
 import Pay from "./pages/Pay";
 import Scheduling from "./pages/Scheduling";
 import Setting from "./pages/Setting";
+import Admin from "./pages/admin";
 
 export default function App() {
   return (
@@ -41,6 +42,8 @@ export default function App() {
           <Route path="/dashboard/pay" element={<ProtectedRoute><PageLayout><Pay /></PageLayout></ProtectedRoute>} />
           <Route path="/dashboard/scheduling" element={<ProtectedRoute><PageLayout><Scheduling /></PageLayout></ProtectedRoute>} />
           <Route path="/dashboard/setting" element={<ProtectedRoute><PageLayout><Setting /></PageLayout></ProtectedRoute>} />
+          <Route path="/dashboard/admin" element={<ProtectedRoute><PageLayout><Admin /></PageLayout></ProtectedRoute>} />
+
         </Route>
       </Routes>
     </div>

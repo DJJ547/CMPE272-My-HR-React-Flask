@@ -10,11 +10,8 @@ from config import app
 from routes.auth import auth
 from routes.clock import Clock
 from routes.Message import socketio, message
+from models.admin import admin
 
-@app.route('/test')
-def test():
-    output = 'testing'
-    return Response(json.dumps(output), status=200)
 
 # authentication routes
 app.register_blueprint(auth)

@@ -9,6 +9,7 @@ from flask import Flask, \
 from config import app, socketio
 from routes.auth import auth
 from routes.Clock import clock
+from routes.Schedule import schedule
 
 
 @app.route('/test')
@@ -19,9 +20,9 @@ def test():
 
 # authentication routes
 app.register_blueprint(auth)
-app.register_blueprint(salary)
 # app.register_blueprint(infoCard)
 app.register_blueprint(clock)
+app.register_blueprint(schedule)
 
 if __name__ == '__main__':
     socketio.run(app, debug=True)

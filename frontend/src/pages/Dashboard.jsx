@@ -17,7 +17,7 @@ export default function Dashboard() {
   });
 
   useEffect(() => {
-    fetch('http://localhost:5000/dashboard/salary')
+    fetch('http://localhost:5000/dashboard')
       .then(response => response.json())
       .then(data => {
         setChartData({

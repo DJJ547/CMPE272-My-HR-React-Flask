@@ -17,6 +17,7 @@ export default function Login() {
       if(data.message === "success"){
         localStorage.setItem('employee_information', JSON.stringify(data.data));
         localStorage.setItem('token', JSON.stringify(data.token));
+        localStorage.setItem('state', JSON.stringify(data.data.state));
         window.location.href = "/dashboard";
       }
       else{

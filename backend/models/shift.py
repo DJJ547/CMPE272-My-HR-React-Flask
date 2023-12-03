@@ -2,6 +2,8 @@ from datetime import datetime
 from datetime import timedelta
 from config import app
 
+from utils import date_convertor
+
 NOT_LATE = 0
 LATE = 1
 NOT_STARTED = 0
@@ -9,29 +11,6 @@ STARTED = 1
 ENDED = 2
 NOT_LONG = 0
 LONG = 1
-
-
-def convert_datetime_to_string(dtime):
-    if not dtime:
-        return None
-    dstring = ''
-    if isinstance(dtime, datetime):
-        dstring = dtime.strftime('%Y-%m-%d %H:%M:%S')
-    elif isinstance(dtime, timedelta):
-        dstring = str(dtime)
-    return dstring
-
-
-def convert_string_to_datetime(dstring, dtype):
-    if not dstring:
-        return None
-    dtime = None
-    if dtype == 'datetime':
-        dtime = datetime.strptime(dstring, '%Y-%m-%d %H:%M:%S')
-    elif dtype == 'timedelta':
-        dtime = datetime.strptime(dstring, '%H:%M:%S')
-        dtime = timedelta(hours=dtime.hour, minutes=dtime.minute, seconds=dtime.second)
-    return dtime
 
 
 class Shift:
@@ -49,7 +28,6 @@ class Shift:
         self.actual_end_time = shift[9]
         # lunch start and end time will be calculated at the time of initiating a shift
         self.assigned_lunch_start_time = self.calculate_lunch_start_time()
-        self.print_all_shift_info()
         self.assigned_lunch_end_time = self.calculate_lunch_end_time()
         self.lunch_duration = self.calculate_assign_lunch_duration()
         self.actual_lunch_start_time = shift[7]
@@ -78,7 +56,7 @@ class Shift:
         # lunchtime will be every four hours
         if self.assigned_end_time - self.assigned_start_time > timedelta(hours=4):
             lunch_start_time = self.assigned_start_time + timedelta(hours=4)
-        lunch_start_time_str = convert_datetime_to_string(lunch_start_time)
+        lunch_start_time_str = date_convertor.convert_datetime_to_string(lunch_start_time)
         # open database connection, and write data to database
         cur = app.mysql.connection.cursor()
         cur.execute(
@@ -96,7 +74,7 @@ class Shift:
                 lunch_end_time = self.assigned_lunch_start_time + timedelta(hours=1)
             elif timedelta(hours=4) < self.assigned_end_time - self.assigned_start_time < timedelta(hours=8):
                 lunch_end_time = self.assigned_lunch_start_time + timedelta(hours=0.5)
-        lunch_end_time_str = convert_datetime_to_string(lunch_end_time)
+        lunch_end_time_str = date_convertor.convert_datetime_to_string(lunch_end_time)
         # open database connection, and write data to database
         cur = app.mysql.connection.cursor()
         cur.execute(
@@ -110,7 +88,7 @@ class Shift:
         lunch_duration = None
         if self.assigned_start_time and self.assigned_end_time:
             lunch_duration = self.assigned_end_time - self.assigned_start_time
-        lunch_duration_str = convert_datetime_to_string(lunch_duration)
+        lunch_duration_str = date_convertor.convert_datetime_to_string(lunch_duration)
         # open database connection, and fetch data from database
         cur = app.mysql.connection.cursor()
         cur.execute(
@@ -121,7 +99,7 @@ class Shift:
         return lunch_duration
 
     def set_actual_start_time(self, clock_in_time):
-        clock_in_time_str = convert_datetime_to_string(clock_in_time)
+        clock_in_time_str = date_convertor.convert_datetime_to_string(clock_in_time)
         error = True
         message = f"shift cannot start at {clock_in_time_str}"
 
@@ -145,7 +123,7 @@ class Shift:
         return error, message
 
     def set_actual_end_time(self, clock_out_time):
-        clock_out_time_str = convert_datetime_to_string(clock_out_time)
+        clock_out_time_str = date_convertor.convert_datetime_to_string(clock_out_time)
         error = True
         message = f"shift cannot end at {clock_out_time_str}"
 
@@ -162,14 +140,14 @@ class Shift:
         return error, message
 
     def check_if_long_shift(self, clock_out_time):
-        assign_shift_end_dtime = convert_string_to_datetime(self.assigned_end_time, 'datetime')
+        assign_shift_end_dtime = date_convertor.convert_string_to_datetime(self.assigned_end_time, 'datetime')
         if clock_out_time - self.actual_start_time == assign_shift_end_dtime - self.assigned_start_time:
             return NOT_LONG
         else:
             return LONG
 
     def set_actual_lunch_start_time(self, lunch_start_time):
-        lunch_start_time_str = convert_datetime_to_string(lunch_start_time)
+        lunch_start_time_str = date_convertor.convert_datetime_to_string(lunch_start_time)
         error = True
         message = f"lunch cannot start at {lunch_start_time_str}"
 
@@ -194,7 +172,7 @@ class Shift:
         return error, message
 
     def set_actual_lunch_end_time(self, lunch_end_time):
-        lunch_end_time_str = convert_datetime_to_string(lunch_end_time)
+        lunch_end_time_str = date_convertor.convert_datetime_to_string(lunch_end_time)
         error = True
         message = f"lunch cannot end at {lunch_end_time_str}"
 
@@ -220,6 +198,3 @@ class Shift:
 
     def check_shift_state(self):
         return self.shift_state
-
-    def print_all_shift_info(self):
-        print(self.__dict__)

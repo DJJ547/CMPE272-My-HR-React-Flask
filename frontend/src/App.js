@@ -11,14 +11,14 @@ import PageLayout from "./components/PageLayout";
 //pages
 import Test from "./pages/Test";
 import Login from "./pages/auth/Login";
-import Signup from "./pages/auth/Signup";
 
 import Dashboard from "./pages/Dashboard";
 import Clock from "./pages/Clock";
 import Message from "./pages/Message";
 import Pay from "./pages/Pay";
-import Scheduling from "./pages/Scheduling";
+import ViewShifts from "./pages/ViewShifts";
 import Setting from "./pages/Setting";
+import AssignShifts from "./pages/manager/AssignShifts"
 
 export default function App() {
   return (
@@ -39,8 +39,12 @@ export default function App() {
           <Route path="/dashboard/clock" element={<ProtectedRoute><PageLayout><Clock /></PageLayout></ProtectedRoute>} />
           <Route path="/dashboard/message" element={<ProtectedRoute><PageLayout><Message /></PageLayout></ProtectedRoute>} />
           <Route path="/dashboard/pay" element={<ProtectedRoute><PageLayout><Pay /></PageLayout></ProtectedRoute>} />
-          <Route path="/dashboard/scheduling" element={<ProtectedRoute><PageLayout><Scheduling /></PageLayout></ProtectedRoute>} />
+          <Route path="/dashboard/scheduling" element={<ProtectedRoute><PageLayout><ViewShifts /></PageLayout></ProtectedRoute>} />
           <Route path="/dashboard/setting" element={<ProtectedRoute><PageLayout><Setting /></PageLayout></ProtectedRoute>} />
+        </Route>
+
+        <Route>
+          <Route path="/dashboard/manager/assign" element={<ProtectedRoute><PageLayout><AssignShifts /></PageLayout></ProtectedRoute> } />
         </Route>
       </Routes>
     </div>

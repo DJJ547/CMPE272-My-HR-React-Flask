@@ -2,15 +2,15 @@ from flask import Blueprint, request, Response, jsonify, json, session
 from config import app
 
 
-salary = Blueprint('salary', __name__)
+dashboard = Blueprint('dashboard', __name__)
 
-@salary.route('/dashboard/salary', methods=['GET'])
-def salaryGraph():
+@dashboard.route('/dashboard', methods=['GET'])
+def get_dashboard_info():
         #open database connection, and fetch data from database
         cur = app.mysql.connection.cursor()
 #         emp_no = session['employee_no']
 #         print(emp_no)
-        cur.execute("SELECT DATE_FORMAT(from_date, '%%Y') as year, salary FROM salaries WHERE emp_no = %s", (10001,))
+        cur.execute("SELECT * FROM salary", (10001,))
 
         salaries_data = cur.fetchall()
         cur.close()

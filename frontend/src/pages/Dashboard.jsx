@@ -83,7 +83,7 @@ export default function Dashboard() {
               options={chartData.options}
               series={chartData.series}
               type="area"
-              width="600"
+              width="800"
             />
           </div>
         </div>

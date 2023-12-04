@@ -8,6 +8,7 @@ export default function MessageOutline() {
   const socket = io("http://localhost:5000");
   const me = JSON.parse(localStorage.getItem("employee_information"));
   const openChatWindow = JSON.parse(localStorage.getItem('openChatWindow'));
+  
   const [chatWindowState, setChatWindowState] = useState({
     showChatWindow: openChatWindow ? openChatWindow.showChatWindow : false,
     otherUserID: openChatWindow ? openChatWindow.otherUserID : '',
@@ -40,6 +41,7 @@ export default function MessageOutline() {
             const newComponent = React.createElement(MessageBox_me, {
                 User: me.full_name,
                 messages: data.message,
+                profile_pic_sender: "https://upload.wikimedia.org/wikipedia/commons/6/61/Font_Awesome_5_solid_user-alt.svg",
             },`${data.sender}-${Date.now()}`);
             setComponents((prevComponents) => [...prevComponents, newComponent]);
             messagesEndRef.current.scrollIntoView({ behavior: 'smooth', block: 'end'});
@@ -49,6 +51,7 @@ export default function MessageOutline() {
             const newComponent = React.createElement(MessageBox, {
               User: chatWindowState.otherUserName,
               messages: data.message,
+              profile_pic_receiver: "https://upload.wikimedia.org/wikipedia/commons/6/61/Font_Awesome_5_solid_user-alt.svg",
             },`${data.sender}-${Date.now()}`);
             setComponents((prevComponents) => [...prevComponents, newComponent]);
             messagesEndRef.current.scrollIntoView({ behavior: 'smooth', block: 'end'});
@@ -63,12 +66,13 @@ export default function MessageOutline() {
       .then((response) => response.json())
       .then((data) => {
         // Render the chat history
-        const components = data.map((message) => {
+        const components = data.chat_history.map((message) => {
           if (message[1] === me.employee_no) {
             //create a messagebox_me for my messages
             const newComponent = React.createElement(MessageBox_me, {
               User: me.full_name,
               messages: message[0],
+              profile_pic_sender: data.profile_pic_sender,
             },`${message.sender}-${Date.now()}`);
             return newComponent;
           }
@@ -77,6 +81,7 @@ export default function MessageOutline() {
             const newComponent = React.createElement(MessageBox, {
               User: chatWindowState.otherUserName,
               messages: message[0],
+              profile_pic_receiver: data.profile_pic_receiver,
             },`${message.sender}-${Date.now()}`);
             return newComponent;
           }

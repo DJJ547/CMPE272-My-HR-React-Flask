@@ -60,6 +60,21 @@ const AssignShifts = () => {
     // setTableData([...tableData, formData]);
   };
 
+  const handleShiftCancel = (shiftNo) => {
+    fetch("http://localhost:5000/dashboard/manager/cancel", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        shift_no: shiftNo,
+      }),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data);
+      })
+      .catch((error) => console.error(error));
+  }
+
   useEffect(() => {
     const options = {
       method: "GET",
@@ -90,8 +105,8 @@ const AssignShifts = () => {
             <th className="py-2 px-4 border-b border">Assign Shift End</th>
             <th className="py-2 px-4 border-b border">Actual Shift Start</th>
             <th className="py-2 px-4 border-b border">Actual Lunch Start</th>
-            <th className="py-2 px-4 border-b border">Assign Lunch End</th>
-            <th className="py-2 px-4 border-b border">Assign Shift End</th>
+            <th className="py-2 px-4 border-b border">Actual Lunch End</th>
+            <th className="py-2 px-4 border-b border">Actual Shift End</th>
           </tr>
         </thead>
         <tbody>
@@ -99,14 +114,15 @@ const AssignShifts = () => {
             <tr key={i}>
               <td className="border p-2">{shift[24]}</td>
               <td className="border p-2">{shift[25]}</td>
-              <td className="border p-2">{shift[6]}</td>
-              <td className="border p-2">{shift[7]}</td>
-              <td className="border p-2">{shift[8]}</td>
-              <td className="border p-2">{shift[9]}</td>
+              <td className="border p-2 bg-gray-100">{shift[6]}</td>
+              <td className="border p-2 bg-gray-100">{shift[7]}</td>
+              <td className="border p-2 bg-gray-100">{shift[8]}</td>
+              <td className="border p-2 bg-gray-100">{shift[9]}</td>
               <td className="border p-2">{shift[10]}</td>
               <td className="border p-2">{shift[11]}</td>
               <td className="border p-2">{shift[12]}</td>
               <td className="border p-2">{shift[13]}</td>
+              <td className="border p-2"><button className="bg-red-500 text-white px-4 py-2 rounded" onClick={() => handleShiftCancel(shift[4])}>Cancel</button></td>
             </tr>
           ))}
         </tbody>

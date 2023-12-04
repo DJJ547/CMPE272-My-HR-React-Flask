@@ -5,6 +5,7 @@ from models.employee import Employee
 # authentication routes
 auth = Blueprint('auth', __name__)
 
+
 @auth.route('/auth/login', methods=['POST'])
 def login():
     if request.method == 'POST':
@@ -12,7 +13,7 @@ def login():
         employee_no = request.json['employee_no']
         password = request.json['password']
 
-        #open database connection, and fetch data from database
+        # open database connection, and fetch data from database
         cur = app.mysql.connection.cursor()
         cur.execute("""
                           SELECT
@@ -47,7 +48,8 @@ def login():
         # check exist or not, the data fetched from database
         if user:
             # add jwt token
-            token = jwt.encode({'employee_no': employee_no}, app.secret_key, algorithm='HS256')
+            token = jwt.encode({'employee_no': employee_no},
+                               app.secret_key, algorithm='HS256')
 
             full_name = user[2] + ' ' + user[3]
             hire_date = user[5]
@@ -60,14 +62,18 @@ def login():
 
             app.redis.set('employee_no', employee_no)
 
-            data = {'employee_no': employee_no, 'full_name': full_name, 'hire_date': hire_date, 'birth_date': birth_date, 'profile_pic': profile_pic, 'motto': motto, 'dept_name': dept_name, 'title': title }
-            
-            response = {'message': 'success', 'error': False, 'data': data, 'token': token}
-            #return the user data fetched from database to frontend
+            data = {'employee_no': employee_no, 'full_name': full_name, 'hire_date': hire_date, 'birth_date': birth_date,
+                    'profile_pic': profile_pic, 'motto': motto, 'dept_name': dept_name, 'title': title}
+
+            response = {'message': 'success',
+                        'error': False, 'data': data, 'token': token}
+            # return the user data fetched from database to frontend
             return Response(json.dumps(response), status=200)
         else:
             # return error message to frontend
             return Response(json.dumps({'message': 'Invalid email or password'}), status=401)
+
+
 """ 
 @auth.route('/signup', methods=['POST'])
 def signup():

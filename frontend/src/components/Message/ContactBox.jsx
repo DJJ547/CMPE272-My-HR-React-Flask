@@ -1,15 +1,15 @@
 import react, {useState} from 'react';
 import MessageOutline from './MessageOutline';
-export default function ContactBox({Fullname, Employee_No}) {
+export default function ContactBox({Fullname, Employee_No, profilePic}) {
     const openChatWindow = () => {
         localStorage.setItem('openChatWindow', JSON.stringify({showChatWindow: true, otherUserID: Employee_No, otherUserName: Fullname}));
         window.location.reload();
     };
- 
+    
     return(
         <div className="px-1 flex hover:bg-blue-50 hover:scale-105 mt-1 py-1 transform active:scale-75 transition-transform hover:cursor-pointer" onClick={openChatWindow}>
             <div className="mr-4">
-                <img src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png" className="rounded-full h-8 w-8 inline-block" />
+                <img src={profilePic} className="rounded-full h-8 w-8 inline-block" />
             </div>
             <div>
                 <p className="hover:text-blue-dark font-bold">{Fullname}</p>

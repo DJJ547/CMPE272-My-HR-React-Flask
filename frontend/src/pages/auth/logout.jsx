@@ -14,8 +14,7 @@ export default function Logout() {
         alert(data.message);
       })
       .catch((error) => console.error(error));
-    localStorage.removeItem("token");
-    localStorage.removeItem("employee_information");
+    localStorage.clear();
     window.location.href = "/auth/login";
   }
 }

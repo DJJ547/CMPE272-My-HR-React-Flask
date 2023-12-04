@@ -9,6 +9,7 @@ from utils import date_convertor
 from models.admin import admin
 auth = Blueprint('auth', __name__)
 
+
 @auth.route('/auth/login', methods=['POST'])
 def login():
     if request.method == 'POST':
@@ -16,15 +17,17 @@ def login():
         employee_no = request.json['employee_no']
         password = request.json['password']
 
-        #open database connection, and fetch data from database
+        # open database connection, and fetch data from database
         cur = app.mysql.connection.cursor()
         cur.execute("SELECT * FROM employees WHERE emp_no = %s AND password = %s", (employee_no, password))
         user_info = cur.fetchone()
+        cur.close()
 
         # check exist or not, the data fetched from database
         if user_info:
             # add jwt token
-            token = jwt.encode({'employee_no': employee_no}, app.secret_key, algorithm='HS256')
+            token = jwt.encode({'employee_no': employee_no},
+                               app.secret_key, algorithm='HS256')
 
             employee_no = user_info[0]
             birthdate = user_info[1]

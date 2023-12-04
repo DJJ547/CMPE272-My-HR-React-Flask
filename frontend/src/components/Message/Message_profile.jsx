@@ -15,7 +15,7 @@ export default function Message_profile() {
     fetch(`http://localhost:5000/employee-search?query=${searchQuery}`)
       .then((response) => response.json())
       .then((data) => {
-        // console.log(data);
+        /* console.log(data); */
         setSearchResults(data);
       });
   };
@@ -27,7 +27,7 @@ export default function Message_profile() {
       .then((response) => response.json())
       .then((data) => {
         setRecentContacts(data);
-        console.log(recentContacts);
+        /* console.log(recentContacts); */
     });
     }
   };
@@ -79,6 +79,7 @@ export default function Message_profile() {
                   <ContactBox
                     Fullname={result[1] + " " + result[2]}
                     Employee_No={result[0]}
+                    profilePic={result[3]}
                   />
                 ))}
               </div>
@@ -91,6 +92,7 @@ export default function Message_profile() {
             <ContactBox
               Fullname={result[1] + " " + result[2]}
               Employee_No={result[0]}
+              profilePic={"https://upload.wikimedia.org/wikipedia/commons/6/61/Font_Awesome_5_solid_user-alt.svg"}
             />
           ))
           )}

@@ -1,5 +1,6 @@
 import React from "react";
-import { Routes, Route, Navigate } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
+// ... other imports
 import "./App.css";
 
 //utilities
@@ -39,7 +40,6 @@ export default function App() {
           <Route path="/dashboard" element={<ProtectedRoute><PageLayout><Dashboard /></PageLayout></ProtectedRoute>} />
           <Route path="/dashboard/clock" element={<ProtectedRoute><PageLayout><Clock /></PageLayout></ProtectedRoute>} />
           <Route path="/dashboard/message" element={<ProtectedRoute><PageLayout><Message /></PageLayout></ProtectedRoute>} />
-          <Route path="/dashboard/pay" element={<ProtectedRoute><PageLayout><Pay /></PageLayout></ProtectedRoute>} />
           <Route path="/dashboard/scheduling" element={<ProtectedRoute><PageLayout><ViewShifts /></PageLayout></ProtectedRoute>} />
           <Route path="/dashboard/setting" element={<ProtectedRoute><PageLayout><Setting /></PageLayout></ProtectedRoute>} />
           <Route path="/dashboard/admin" element={<ProtectedRoute><PageLayout><Admin /></PageLayout></ProtectedRoute>} />

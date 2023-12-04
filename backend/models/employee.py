@@ -65,3 +65,17 @@ class Employee:
                 response['error'] = result[0]
                 response['message'] = result[1]
         return response
+
+    def update_profile(self, motto, profile_pic_url):
+        conn = app.mysql.connection
+        cur = conn.cursor()
+        try:
+            cur.execute("UPDATE employees SET motto = %s, profile_pic = %s WHERE emp_no = %s",
+                        (motto, profile_pic_url, self.employee_no))
+            conn.commit()
+            return {'error': False, 'message': 'Profile updated successfully'}
+        except Exception as e:
+            conn.rollback()
+            return {'error': True, 'message': str(e)}
+        finally:
+            cur.close()

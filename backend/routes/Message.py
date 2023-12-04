@@ -35,7 +35,6 @@ def handle_message(data):
 def get_chat_history():
     sender = request.args.get('sender')
     receiver = request.args.get('receiver')
-
     cur = app.mysql.connection.cursor()
     cur.execute("""
         SELECT message, sender
@@ -43,17 +42,23 @@ def get_chat_history():
         WHERE (sender = %s AND receiver = %s) OR (sender = %s AND receiver = %s)
         ORDER BY timestamp
     """, (sender, receiver, receiver, sender))
-
     chat_history = cur.fetchall()
+    cur.execute("SELECT profile_pic FROM employees WHERE emp_no = %s", (sender,))
+    profile_pic_sender = cur.fetchone()[0]
+    cur.execute("SELECT profile_pic FROM employees WHERE emp_no = %s", (receiver,))
+    profile_pic_receiver = cur.fetchone()[0]
     cur.close()
-    return json.dumps(chat_history)
+    output = {'chat_history': chat_history, 'profile_pic_sender': profile_pic_sender,
+              'profile_pic_receiver': profile_pic_receiver}
+    
+    return json.dumps(output)
 
 
 @message.route('/employee-search')
 def employee_search():
     search = request.args.get('query', '')
     cur = app.mysql.connection.cursor()
-    cur.execute(""" SELECT emp_no, first_name, last_name FROM employees WHERE first_name LIKE %s OR last_name LIKE %s OR emp_no LIKE %s LIMIT 20 """,
+    cur.execute(""" SELECT emp_no, first_name, last_name, profile_pic FROM employees WHERE first_name LIKE %s OR last_name LIKE %s OR emp_no LIKE %s LIMIT 20 """,
                 ('%'+search + '%', '%'+search + '%', '%'+search + '%'))
     result = cur.fetchall()
     cur.close()
@@ -73,6 +78,8 @@ def recent_contacts():
         JOIN chat_history ch ON ch.sender = sub.sender AND ch.receiver = sub.receiver
         ORDER BY ch.timestamp""", (emp_no, emp_no))
     result = cur.fetchall()
+    if len(result) == 0:
+        return json.dumps([])
 
     emp_no = int(emp_no)
     distinct_numbers = []

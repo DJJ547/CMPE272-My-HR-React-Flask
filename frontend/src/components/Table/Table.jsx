@@ -1,72 +1,171 @@
 import * as React from "react";
-import { DataGrid } from "@mui/x-data-grid";
+import { DataGrid, GridToolbarContainer, GridRowModes } from "@mui/x-data-grid";
+import Box from "@mui/material/Box";
+import Stack from "@mui/material/Stack";
+import Button from "@mui/material/Button";
 import axios from "axios";
+import { Typography } from "@mui/material";
 
 const columns = [
-  { field: "id", headerName: "emp_no", width: 100 },
-  { field: "firstName", headerName: "First name", width: 130 },
-  { field: "lastName", headerName: "Last name", width: 130 },
+  { field: "id", headerName: "emp_no", width: 100},
+  { field: "first_name", headerName: "First name", width: 130, editable: true },
+  { field: "last_name", headerName: "Last name", width: 130, editable: true },
   {
     field: "gender",
     headerName: "Gender",
     type: "character",
     width: 90,
+    editable: true,
   },
   {
     field: "birth_date",
     headerName: "Birth Date",
     type: "date",
     width: 130,
+    editable: true,
   },
   {
     field: "hire_date",
     headerName: "Hire Date",
     type: "date",
     width: 130,
+    editable: true,
+  },
+  {
+    field: "action",
+    headerName: "Action",
+    width: 130,
+    renderCell: (params) => (
+      <strong>
+        <Button
+          variant="contained"
+          color="primary"
+          size="small"
+          style={{ marginLeft: 16 }}
+          onClick={() => {
+            if(window.confirm("Are you sure you want to delete this record?")){
+              axios
+              .delete("http://localhost:5000/admin/Delete_user", {
+                data: { id: params.row.id },
+              })
+              .then((res) => {
+                if (res.status === 200) {
+                  alert("Delete success");
+                  window.location.reload();
+                }
+                else {
+                  alert("Delete failed");
+                }
+              })
+              .catch((err) => {
+                console.log(err);
+              });
+            }
+          }}
+        >
+          Delete
+        </Button>
+      </strong>
+    ),
   },
 ];
 
-const row = [
-  { id: 1, lastName: "Snow", firstName: "Jon", age: 35 },
-  { id: 2, lastName: "Lannister", firstName: "Cersei", age: 42 },
-  { id: 3, lastName: "Lannister", firstName: "Jaime", age: 45 },
-  { id: 4, lastName: "Stark", firstName: "Arya", age: 16 },
-  { id: 5, lastName: "Targaryen", firstName: "Daenerys", age: null },
-  { id: 6, lastName: "Melisandre", firstName: null, age: 150 },
-  { id: 7, lastName: "Clifford", firstName: "Ferrara", age: 44 },
-  { id: 8, lastName: "Frances", firstName: "Rossini", age: 36 },
-  { id: 9, lastName: "Roxie", firstName: "Harvey", age: 65 },
-];
-
 export default function DataTable() {
-    const [rows, setRows] = React.useState([]);
+  const [rows, setRows] = React.useState([]);
+  const [rowModesModel, setRowModesModel] = React.useState({});
   React.useEffect(() => {
     axios
       .get("http://localhost:5000/admin/Get_all_users")
       .then((res) => {
-        console.log(res.data);
-        setRows(res.data);
-        for (let i = 0; i < res.data.length; i++) {
-          res.data[i].id = i;
-        }
+        const updatedRows = res.data.map((item) => {
+          return {
+            id: item.id,
+            birth_date: new Date(item.birth_date),
+            first_name: item.first_name,
+            last_name: item.last_name,
+            gender: item.gender,
+            hire_date: new Date(item.hire_date),
+          };
+        });
+        setRows(updatedRows);
       })
       .catch((err) => {
         console.log(err);
       });
   }, []);
+
+  function EditToolbar(props) {
+    const { setRows } = props;
+
+    const handleClick = () => {
+      const id = "";
+      setRows((oldRows) => [
+        {
+          id,
+          first_name: "",
+          last_name: "",
+          gender: "",
+          birth_date: "",
+          hire_date: "",
+          isNew: true,
+        },
+        ...oldRows
+      ]);
+    };
+
+    return (
+      <GridToolbarContainer>
+        <Button color="primary" onClick={handleClick}>
+          Add record
+        </Button>
+      </GridToolbarContainer>
+    );
+  }
+
   return (
-    <div style={{ height: 800, width: "80%" }}>
+    <Box className="h-700 w-3/4 mx-auto p-10">
+      <Typography variant="h5" className="text-left mb-10 font-extrabold">
+        Employee Table
+      </Typography>
       <DataGrid
         rows={rows}
         columns={columns}
+        editMode="row"
+        getRowId={(row) => row.id}
+        processRowUpdate={(e) => {
+          console.log(e);
+          axios
+            .put("http://localhost:5000/admin/Update_user", e, {
+              headers: {
+                "Content-Type": "application/json",
+              },
+            })
+            .then((res) => {
+              if (res.status === 200) {
+                alert("Update success");
+                window.location.reload();
+              }
+              else {
+                alert("Update failed");
+              }
+            })
+            .catch((err) => {
+              console.log(err);
+            });
+        }}
+        slots={{
+          toolbar: EditToolbar,
+        }}
+        slotProps={{
+          toolbar: { setRows },
+        }}
         initialState={{
           pagination: {
-            paginationModel: { page: 0, pageSize: 5 },
+            paginationModel: { page: 0, pageSize: 15 },
           },
         }}
-        pageSizeOptions={[5, 10]}
-        checkboxSelection
+        pageSizeOptions={[15, 30, 60]}
       />
-    </div>
+    </Box>
   );
 }

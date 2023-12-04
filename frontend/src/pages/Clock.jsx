@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Number } from "../components/clock/Number";
 import { Word } from "../components/clock/Word";
+import { format } from 'date-fns';
 
 const days = ["SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"];
 const months = [
@@ -48,7 +49,8 @@ export default function Clock(h24 = true) {
     setShowDisplay(true);
     console.log(punchType);
     const time = new Date();
-    const currentTime = time.getTime();
+    let currentTime = time.getTime();
+    currentTime = format(currentTime, 'yyyy-MM-dd HH:mm:ss')
     console.log(currentTime);
 
     const options = {
@@ -61,7 +63,7 @@ export default function Clock(h24 = true) {
         time: currentTime,
       }),
     };
-    fetch("http://127.0.0.1:5000/clock", options)
+    fetch("http://127.0.0.1:5000/dashboard/clock", options)
       .then((response) => response.json())
       .then((data) => {
         console.log(data);

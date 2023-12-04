@@ -1,5 +1,6 @@
 import React from "react";
-import { Routes, Route, Navigate } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
+// ... other imports
 import "./App.css";
 
 //utilities

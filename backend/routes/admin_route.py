@@ -34,10 +34,11 @@ def update_user():
     formatted_birth_date = birth_date.strftime("%Y-%m-%d")
     formatted_hire_date = hire_date.strftime("%Y-%m-%d")
     cur = app.mysql.connection.cursor()
-    cur.execute("SELECT emp_no FROM dept_manager where emp_no = %s", (row['id'],))
+    cur.execute("SELECT emp_no FROM employees where emp_no = %s", (row['id'],))
     user = cur.fetchone()
     cur.execute("SELECT MAX(emp_no) FROM employees")
     max_id = cur.fetchone()[0]
+    print(user, max_id)
     if user:
         update_query = """
         UPDATE employees

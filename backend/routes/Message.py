@@ -34,7 +34,6 @@ def handle_message(data):
 def get_chat_history():
     sender = request.args.get('sender')
     receiver = request.args.get('receiver')
-
     cur = app.mysql.connection.cursor()
     cur.execute("""
         SELECT message, sender
@@ -73,6 +72,7 @@ def recent_contacts():
         ORDER BY ch.timestamp""", (emp_no, emp_no))
     result = cur.fetchall()
     
+    print(result == None)
     if len(result) == 0:
         return json.dumps([])
 

@@ -13,7 +13,6 @@ import {
   PowerIcon,
   CalendarIcon,
 } from "@heroicons/react/24/solid";
-import { Link, json } from 'react-router-dom';
 import Logout from "../pages/auth/Logout";
 
 // ...

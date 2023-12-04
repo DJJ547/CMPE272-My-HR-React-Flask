@@ -14,7 +14,7 @@ import {
   CalendarIcon,
 } from "@heroicons/react/24/solid";
 import { Link, json } from 'react-router-dom';
-import Logout from "../pages/auth/logout";
+import Logout from "../pages/auth/Logout";
 
 // ...
 export default function Sidebar() {

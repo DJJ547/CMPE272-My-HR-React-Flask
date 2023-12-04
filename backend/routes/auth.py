@@ -37,6 +37,28 @@ def login():
         else:
             # return error message to frontend
             return Response(json.dumps({'message': 'Invalid email or password'}), status=401)
+    
+
+@auth.route('/auth/changePassword', methods=['POST'])
+def change_password():
+    emp_no = request.json['emp_no']
+    old_password = request.json['currentPassword']
+    new_password = request.json['newPassword']
+    
+    cur = app.mysql.connection.cursor()
+    cur.execute("SELECT * FROM employees WHERE emp_no = %s AND password = %s", (emp_no, old_password))
+    user = cur.fetchone()
+    if user:
+        cur = app.mysql.connection.cursor()
+        cur.execute("UPDATE employees SET password = %s WHERE emp_no = %s", (new_password, emp_no))
+        app.mysql.connection.commit()
+        cur.close()
+        return Response(json.dumps({'message': 'Password changed successfully'}), status=200)
+    else:
+        return Response(json.dumps({'message': 'Invalid current password'}), status=401)
+
+
+
 """ 
 @auth.route('/signup', methods=['POST'])
 def signup():

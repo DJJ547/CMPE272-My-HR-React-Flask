@@ -72,6 +72,9 @@ def recent_contacts():
         JOIN chat_history ch ON ch.sender = sub.sender AND ch.receiver = sub.receiver
         ORDER BY ch.timestamp""", (emp_no, emp_no))
     result = cur.fetchall()
+    
+    if len(result) == 0:
+        return json.dumps([])
 
     emp_no = int(emp_no)
     distinct_numbers = []

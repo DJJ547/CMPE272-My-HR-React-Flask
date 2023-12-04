@@ -21,6 +21,7 @@ def disconnect():
 @socketio.on('message')
 def handle_message(data):
     # Save message to MySQL database
+    print(data)
     cur = app.mysql.connection.cursor()
     cur.execute("INSERT INTO chat_history (sender, receiver, message) VALUES (%s, %s, %s)",
                 (data['sender'], data['receiver'], data['message']))

@@ -12,6 +12,7 @@ from routes.Clock import clock
 from routes.Schedule import schedule
 from routes.Message import socketio, message
 from routes.admin_route import admin_route
+from routes.dashboard import dashboard
 from models.admin import admin
 
 
@@ -26,6 +27,8 @@ app.register_blueprint(auth)
 app.register_blueprint(clock)
 app.register_blueprint(message)
 app.register_blueprint(admin_route)
+app.register_blueprint(schedule)
+app.register_blueprint(dashboard)
 
 if __name__ == '__main__':
     socketio.run(app, debug=True)

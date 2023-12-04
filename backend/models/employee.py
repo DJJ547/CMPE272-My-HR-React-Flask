@@ -18,11 +18,10 @@ class Employee:
         self.from_date = app.redis.get('from_date')
 
     def start_shift(self, clock_in_time_str, punch_type):
-        shifts = shifts_db.get_shifts_from_db(self.employee_no)
+        shifts = shifts_db.get_shifts_from_db_to_list(self.employee_no)
         clock_in_time_dtime = date_convertor.convert_string_to_datetime(clock_in_time_str, 'datetime')
         response = {'error': True, 'message': f'shift cannot start at {clock_in_time_str}'}
         # loop thru each shift and find the current one
-        print(shifts)
         for shift in shifts:
             if shift.check_if_is_current_shift(clock_in_time_dtime, punch_type):
                 print('is current')
@@ -32,7 +31,7 @@ class Employee:
         return response
 
     def end_shift(self, clock_out_time_str, punch_type):
-        shifts = shifts_db.get_shifts_from_db(self.employee_no)
+        shifts = shifts_db.get_shifts_from_db_to_list(self.employee_no)
         clock_out_time_dtime = date_convertor.convert_string_to_datetime(clock_out_time_str, 'datetime')
         response = {'error': True, 'message': f'shift cannot end at {clock_out_time_str}'}
         # loop thru each shift and find the current one
@@ -44,7 +43,7 @@ class Employee:
         return response
 
     def start_lunch(self, lunch_start_time_str, punch_type):
-        shifts = shifts_db.get_shifts_from_db(self.employee_no)
+        shifts = shifts_db.get_shifts_from_db_to_list(self.employee_no)
         lunch_start_time_dtime = date_convertor.convert_string_to_datetime(lunch_start_time_str, 'datetime')
         response = {'error': True, 'message': f'lunch cannot start at {lunch_start_time_str}'}
         # loop thru each shift and find the current one
@@ -56,7 +55,7 @@ class Employee:
         return response
 
     def end_lunch(self, lunch_end_time_str, punch_type):
-        shifts = shifts_db.get_shifts_from_db(self.employee_no)
+        shifts = shifts_db.get_shifts_from_db_to_list(self.employee_no)
         lunch_end_time_dtime = date_convertor.convert_string_to_datetime(lunch_end_time_str, 'datetime')
         response = {'error': True, 'message': f'lunch cannot end at {lunch_end_time_str}'}
         # loop thru each shift and find the current one

@@ -66,7 +66,6 @@ export default function Clock(h24 = true) {
     fetch("http://127.0.0.1:5000/dashboard/clock", options)
       .then((response) => response.json())
       .then((data) => {
-        console.log(data);
         setDisplay(data.message);
         setPunchSucceed(!data.error);
       })

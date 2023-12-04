@@ -13,11 +13,13 @@ import {
   PowerIcon,
   CalendarIcon,
 } from "@heroicons/react/24/solid";
-import Logout from "../pages/auth/logout";
+import Logout from "../pages/auth/Logout";
 
 // ...
 export default function Sidebar() {
-  const is_manager = JSON.parse(localStorage.getItem('employee_information')).is_manager;
+  const is_manager = JSON.parse(
+    localStorage.getItem("employee_information")
+  ).is_manager;
   const handleClick = (path) => () => {
     window.location.href = path;
   };
@@ -47,13 +49,18 @@ export default function Sidebar() {
           </ListItemPrefix>
           Dashboard
         </ListItem>
-        
-        {is_manager && (<ListItem onClick={handleClick("/dashboard/admin")}>
-          <ListItemPrefix>
-          <img src="https://icons.veryicon.com/png/o/miscellaneous/yuanql/icon-admin.png" className="w-6 h-6"/>
-          </ListItemPrefix>
-          Admin
-        </ListItem>)}
+
+        {is_manager && (
+          <ListItem onClick={handleClick("/dashboard/admin")}>
+            <ListItemPrefix>
+              <img
+                src="https://icons.veryicon.com/png/o/miscellaneous/yuanql/icon-admin.png"
+                className="w-6 h-6"
+              />
+            </ListItemPrefix>
+            Admin
+          </ListItem>
+        )}
 
         <ListItem onClick={handleClick("/dashboard/clock")}>
           <ListItemPrefix>
@@ -89,7 +96,7 @@ export default function Sidebar() {
           View Shifts
         </ListItem>
 
-        {/* {state === "M" && ( */}
+        {JSON.parse(localStorage.getItem("state")) === "M" && (
           <ListItem onClick={handleClick("/dashboard/manager/assign")}>
             <ListItemPrefix>
               <svg
@@ -109,7 +116,7 @@ export default function Sidebar() {
             </ListItemPrefix>
             Assign Shifts
           </ListItem>
-        {/* )} */}
+        )}
 
         <ListItem onClick={handleClick("/dashboard/pay")}>
           <ListItemPrefix>

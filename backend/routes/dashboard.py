@@ -8,15 +8,20 @@ dashboard = Blueprint('dashboard', __name__)
 def get_dashboard_info():
         #open database connection, and fetch data from database
         cur = app.mysql.connection.cursor()
-#         emp_no = session['employee_no']
-#         print(emp_no)
-        cur.execute("SELECT * FROM salary", (10001,))
-
+        cur.execute("SELECT * FROM salaries WHERE emp_no = %s", (app.redis.get('employee_no'),))
         salaries_data = cur.fetchall()
+        # Prepare data for JSON response
+        years = [salary[2].year for salary in salaries_data]
+        salaries = [salary[1] for salary in salaries_data]
+
+        # get department name
+        cur.execute("SELECT dept_name FROM departments WHERE dept_no = %s", (app.redis.get('dept_no'),))
+        dept_name = cur.fetchone()
+
+        # get title
+        cur.execute("SELECT title FROM titles WHERE emp_no = %s", (app.redis.get('employee_no'),))
+        title_name = cur.fetchone()
         cur.close()
 
-        # Prepare data for JSON response
-        years = [data[0] for data in salaries_data]
-        salaries = [data[1] for data in salaries_data]
-
-        return jsonify({'years': years, 'salaries': salaries})
+        output = {'years': years, 'salaries': salaries, 'dept_name':dept_name, 'title_name':title_name}
+        return Response(json.dumps(output), status=200)

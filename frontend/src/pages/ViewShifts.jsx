@@ -5,7 +5,7 @@ import cn from "../static/schedule/cn";
 import { format } from "date-fns";
 import { GrFormNext, GrFormPrevious } from "react-icons/gr";
 
-export default function Scheduling() {
+export default function ViewShifts() {
   // const days = ["S", "M", "T", "W", "T", "F", "S"];
   // const currentDate = dayjs();
   // const [today, setToday] = useState(currentDate);
@@ -50,33 +50,33 @@ export default function Scheduling() {
 
   return (
     <div className="max-w-screen-full m-auto mt-8">
-      <h2 className="w-full text-2xl font-bold mb-4">Schedule Table</h2>
+      <h2 className="w-full text-2xl font-bold mb-4">Shifts Table</h2>
       <table className="min-w-full bg-white border border-gray-300">
         <thead>
           <tr className="bg-gray-100">
-            <th className="py-2 px-4 border-b">Shift ID</th>
-            <th className="py-2 px-4 border-b">Assign Shift Start</th>
-            <th className="py-2 px-4 border-b">Assign Lunch Start</th>
-            <th className="py-2 px-4 border-b">Assign Lunch End</th>
-            <th className="py-2 px-4 border-b">Assign Shift End</th>
-            <th className="py-2 px-4 border-b">Actual Shift Start</th>
-            <th className="py-2 px-4 border-b">Actual Lunch Start</th>
-            <th className="py-2 px-4 border-b">Assign Lunch End</th>
-            <th className="py-2 px-4 border-b">Assign Shift End</th>
+            <th className="py-2 px-4 border-b border">Shift ID</th>
+            <th className="py-2 px-4 border-b border">Assign Shift Start</th>
+            <th className="py-2 px-4 border-b border">Assign Lunch Start</th>
+            <th className="py-2 px-4 border-b border">Assign Lunch End</th>
+            <th className="py-2 px-4 border-b border">Assign Shift End</th>
+            <th className="py-2 px-4 border-b border">Actual Shift Start</th>
+            <th className="py-2 px-4 border-b border">Actual Lunch Start</th>
+            <th className="py-2 px-4 border-b border">Assign Lunch End</th>
+            <th className="py-2 px-4 border-b border">Assign Shift End</th>
           </tr>
         </thead>
         <tbody>
           {tableData.map((shift) => (
             <tr>
-              <td>{shift[0]}</td>
-              <td>{stringToTime(shift[2])}</td>
-              <td>{stringToTime(shift[3])}</td>
-              <td>{stringToTime(shift[4])}</td>
-              <td>{stringToTime(shift[5])}</td>
-              <td>{stringToTime(shift[6])}</td>
-              <td>{stringToTime(shift[7])}</td>
-              <td>{stringToTime(shift[8])}</td>
-              <td>{stringToTime(shift[9])}</td>
+              <td className="border p-2">{shift[0]}</td>
+              <td className="border p-2">{stringToTime(shift[2])}</td>
+              <td className="border p-2">{stringToTime(shift[3])}</td>
+              <td className="border p-2">{stringToTime(shift[4])}</td>
+              <td className="border p-2">{stringToTime(shift[5])}</td>
+              <td className="border p-2">{stringToTime(shift[6])}</td>
+              <td className="border p-2">{stringToTime(shift[7])}</td>
+              <td className="border p-2">{stringToTime(shift[8])}</td>
+              <td className="border p-2">{stringToTime(shift[9])}</td>
             </tr>
           ))}
         </tbody>

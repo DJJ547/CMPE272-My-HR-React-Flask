@@ -9,8 +9,6 @@ clock = Blueprint('clock', __name__)
 @clock.route('/dashboard/clock', methods=['POST'])
 def Clock():
     punch_type = request.json.get('type')
-    print(punch_type)
     punch_time = request.json.get('time')
-    print(punch_time)
     output = process_punch(punch_type, punch_time)
     return Response(json.dumps(output), status=200)

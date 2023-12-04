@@ -32,11 +32,26 @@ def login():
             last_name = user_info[3]
             gender = user_info[4]
             hire_date = user_info[5]
-            dept_no = None
-            from_date = None
-            to_date = None
 
-            # if user exists, then check if he is a manager
+            cur = app.mysql.connection.cursor()
+            cur.execute("SELECT * FROM dept_emp WHERE emp_no = %s", (employee_no,))
+            dept_info = cur.fetchone()
+            dept_no = dept_info[1]
+            from_date = dept_info[2]
+            to_date = dept_info[3]
+
+            # load data into redis server side session
+            app.redis.set('employee_no', employee_no)
+            app.redis.set('first_name', first_name)
+            app.redis.set('last_name', last_name)
+            app.redis.set('birthdate', date_convertor.convert_datetime_to_string(birthdate))
+            app.redis.set('gender', gender)
+            app.redis.set('hire_date', date_convertor.convert_datetime_to_string(hire_date))
+            app.redis.set('dept_no', dept_no)
+            app.redis.set('from_date', date_convertor.convert_datetime_to_string(from_date))
+            app.redis.set('to_date', date_convertor.convert_datetime_to_string(to_date))
+
+            # check if he is a manager
             cur.execute("SELECT * FROM dept_manager WHERE emp_no = %s", (employee_no,))
             manager_info = cur.fetchone()
             cur.close()
@@ -48,30 +63,12 @@ def login():
                 to_date = manager_info[3]
                 # manager = Manager(employee_no, first_name, last_name, birthdate, gender, hire_date,  dept_no, from_date, to_date)
                 app.redis.set('state', state)
-                app.redis.set('emp_no', employee_no)
-                app.redis.set('first_name', first_name)
-                app.redis.set('last_name', last_name)
-                app.redis.set('birthdate', date_convertor.convert_datetime_to_string(birthdate))
-                app.redis.set('gender', gender)
-                app.redis.set('hire_date', date_convertor.convert_datetime_to_string(hire_date))
-                app.redis.set('dept_no', dept_no)
-                app.redis.set('from_date', date_convertor.convert_datetime_to_string(from_date))
-                app.redis.set('to_date', date_convertor.convert_datetime_to_string(to_date))
-
-
             else:
                 state = 'E'
                 # employee = Employee(employee_no, birthdate, first_name, last_name, gender, hire_date)
                 app.redis.set('state', state)
-                app.redis.set('emp_no', employee_no)
-                app.redis.set('first_name', first_name)
-                app.redis.set('last_name', last_name)
-                app.redis.set('birthdate', date_convertor.convert_datetime_to_string(birthdate))
-                app.redis.set('gender', gender)
-                app.redis.set('hire_date', date_convertor.convert_datetime_to_string(hire_date))
 
-
-            data = {'emp_no': employee_no, 'first_name': first_name, 'last_name': last_name, 'hire_date': hire_date, 'birthdate': birthdate, 'gender': gender, 'dept_no': dept_no, 'from_date': from_date, 'to_date': to_date, 'state': state}
+            data = {'employee_no': employee_no, 'first_name': first_name, 'last_name': last_name, 'hire_date': hire_date, 'birthdate': birthdate, 'gender': gender, 'dept_no': dept_no, 'from_date': from_date, 'to_date': to_date, 'state': state}
             
             response = {'message': 'success', 'error': False, 'data': data, 'token': token}
             #return the user data fetched from database to frontend

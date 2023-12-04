@@ -1,30 +1,33 @@
 from models.employee import Employee
 from models.manager import Manager
 from models.shift import Shift
-from flask import json, session
-import datetime
-from utils import shifts_db
+from datetime import datetime
+from utils import shifts_db, date_convertor
 from config import app
 
-# maybe do this with a SQL join table???
 def get_all_dept_employees_and_shifts():
-    manager = Manager(app.redis.get('emp_no'))
-    dept_emps = manager.get_department_employees()
-    # get a list of all department employees id
-    dept_emps_nums = []
-    for dept_emp in dept_emps:
-        dept_emps_nums.append(dept_emp[0])
-    # print("dept_emps_nums: ", dept_emps_nums)
-
-    # use a dictionary to store all shifts as value and emp_no as key
-    dept_emps_dict = {}
-    for num in dept_emps_nums:
-        shifts = shifts_db.get_shifts_from_db(num)
-        dept_emps_dict[num] = shifts
-    print(dept_emps_dict)
-    return dept_emps_dict
+    manager = Manager(app.redis.get('employee_no'))
+    all_dept_shifts = manager.get_all_dept_shifts_given_dept_no(app.redis.get('dept_no'))
+    return all_dept_shifts
 
 def get_self_schedule():
-    emp_no = app.redis.get('emp_no')
-    shifts = shifts_db.get_shifts_from_db(emp_no)
+    shifts = shifts_db.get_shifts_from_db(app.redis.get('employee_no'))
     return shifts
+
+def assign_shift(first_name, last_name, start_time, end_time):
+    start_time = date_convertor.datetime_to_eight_hour_before(start_time)
+    end_time = date_convertor.datetime_to_eight_hour_before(end_time)
+    manager = Manager(app.redis.get('employee_no'))
+    emp_no = manager.get_employee_no(first_name, last_name)
+    if not emp_no:
+        output = {'error': True, 'message': 'Employee info is wrong'}
+    else:
+        manager.assign_shift(emp_no, start_time, end_time)
+        output = {'error': False, 'message': 'success'}
+    return output
+    
+
+
+
+
+

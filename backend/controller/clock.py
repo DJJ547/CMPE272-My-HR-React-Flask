@@ -6,7 +6,7 @@ from config import app
 
 
 def process_punch(punch_type, time_str):
-    employee = Employee(app.redis.get('emp_no'))
+    employee = Employee(app.redis.get('employee_no'))
     output = {}
     if punch_type == 'start_shift':
         output = employee.start_shift(time_str, punch_type)
@@ -16,5 +16,4 @@ def process_punch(punch_type, time_str):
         output = employee.end_lunch(time_str, punch_type)
     elif punch_type == 'end_shift':
         output = employee.end_shift(time_str, punch_type)
-    print(output)
     return output

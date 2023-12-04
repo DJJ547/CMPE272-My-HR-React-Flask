@@ -7,7 +7,7 @@ export default function Login() {
     const employee_no = e.target.elements.employee_no.value;
     const password = e.target.elements.password.value;
     
-    fetch("http://localhost:5000/auth/login", {
+    fetch(`${process.env.REACT_APP_API_URL}auth/login`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ employee_no, password }),

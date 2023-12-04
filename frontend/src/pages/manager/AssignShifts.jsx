@@ -41,7 +41,7 @@ const AssignShifts = () => {
   };
 
   const handleFormSubmit = () => {
-    fetch("http://localhost:5000/dashboard/manager/assign", {
+    fetch(`${process.env.REACT_APP_API_URL}dashboard/manager/assign`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
@@ -67,7 +67,7 @@ const AssignShifts = () => {
         "Content-Type": "application/json",
       },
     };
-    fetch("http://127.0.0.1:5000/dashboard/manager/schedule", options)
+    fetch(`${process.env.REACT_APP_API_URL}dashboard/manager/schedule`, options)
       .then((response) => response.json())
       .then((data) => {
         console.log(data);

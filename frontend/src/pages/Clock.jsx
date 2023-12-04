@@ -61,7 +61,7 @@ export default function Clock(h24 = true) {
         time: currentTime,
       }),
     };
-    fetch("http://127.0.0.1:5000/dashboard/clock", options)
+    fetch(`${process.env.REACT_APP_API_URL}dashboard/clock`, options)
       .then((response) => response.json())
       .then((data) => {
         setDisplay(data.message);

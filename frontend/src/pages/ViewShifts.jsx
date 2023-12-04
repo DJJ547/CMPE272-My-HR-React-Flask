@@ -39,7 +39,7 @@ export default function ViewShifts() {
         "Content-Type": "application/json",
       },
     };
-    fetch("http://127.0.0.1:5000/dashboard/employee/schedule", options)
+    fetch(`${process.env.REACT_APP_API_URL}dashboard/employee/schedule`, options)
       .then((response) => response.json())
       .then((data) => {
         console.log(data)

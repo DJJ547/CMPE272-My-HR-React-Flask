@@ -45,7 +45,7 @@ const columns = [
           onClick={() => {
             if(window.confirm("Are you sure you want to delete this record?")){
               axios
-              .delete("http://localhost:5000/admin/Delete_user", {
+              .delete(`${process.env.REACT_APP_API_URL}admin/Delete_user`, {
                 data: { id: params.row.id },
               })
               .then((res) => {
@@ -75,7 +75,7 @@ export default function DataTable() {
   const [rowModesModel, setRowModesModel] = React.useState({});
   React.useEffect(() => {
     axios
-      .get("http://localhost:5000/admin/Get_all_users")
+      .get(`${process.env.REACT_APP_API_URL}admin/Get_all_users`)
       .then((res) => {
         const updatedRows = res.data.map((item) => {
           return {
@@ -135,7 +135,7 @@ export default function DataTable() {
         processRowUpdate={(e) => {
           console.log(e);
           axios
-            .put("http://localhost:5000/admin/Update_user", e, {
+            .put(`${process.env.REACT_APP_API_URL}admin/Update_user`, e, {
               headers: {
                 "Content-Type": "application/json",
               },

@@ -12,7 +12,7 @@ export default function Message_profile() {
       setSearchResults([]);
       return;
     }
-    fetch(`http://localhost:5000/employee-search?query=${searchQuery}`)
+    fetch(`${process.env.REACT_APP_API_URL}employee-search?query=${searchQuery}`)
       .then((response) => response.json())
       .then((data) => {
         /* console.log(data); */
@@ -23,7 +23,7 @@ export default function Message_profile() {
   const switchTab = (tab) => {
     setActiveTab(tab);
     if (tab === "second") {
-      fetch(`http://localhost:5000/recent-contacts?employee_no=${JSON.parse(localStorage.getItem("employee_information")).employee_no}`)
+      fetch(`${process.env.REACT_APP_API_URL}recent-contacts?employee_no=${JSON.parse(localStorage.getItem("employee_information")).employee_no}`)
       .then((response) => response.json())
       .then((data) => {
         setRecentContacts(data);

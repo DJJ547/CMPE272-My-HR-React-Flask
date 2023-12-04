@@ -61,7 +61,7 @@ const AssignShifts = () => {
   };
 
   const handleShiftCancel = (shiftNo) => {
-    fetch("http://localhost:5000/dashboard/manager/cancel", {
+    fetch(`${process.env.REACT_APP_API_URL}manager/cancel`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({

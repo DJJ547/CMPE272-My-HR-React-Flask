@@ -5,7 +5,7 @@ import MessageBox_me from "./MessageBox_me";
 import Draggable from 'react-draggable';
 
 export default function MessageOutline() {
-  const socket = io("http://localhost:5000");
+  const socket = io(`${process.env.REACT_APP_SOCKET_URL}`);
   const me = JSON.parse(localStorage.getItem("employee_information"));
   const openChatWindow = JSON.parse(localStorage.getItem('openChatWindow'));
   
@@ -62,7 +62,7 @@ export default function MessageOutline() {
 
   const fetchChatHistory = (sender, receiver) => {
     // Fetch chat history from the server
-    fetch(`http://localhost:5000/chat-history?sender=${sender}&receiver=${receiver}`)
+    fetch(`${process.env.REACT_APP_API_URL}chat-history?sender=${sender}&receiver=${receiver}`)
       .then((response) => response.json())
       .then((data) => {
         // Render the chat history

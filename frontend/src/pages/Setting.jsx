@@ -13,7 +13,7 @@ export default function Setting() {
     e.preventDefault();
     const employee_no = employee_information.employee_no;
     const token = JSON.parse(localStorage.getItem("token"));
-    fetch("http://localhost:5000/setting/updateprofile", {
+    fetch(`${process.env.REACT_APP_API_URL}setting/updateprofile`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -59,7 +59,7 @@ export default function Setting() {
       emp_no: emp_no,
     };
     axios
-      .post("http://localhost:5000/auth/changePassword", data)
+      .post(`${process.env.REACT_APP_API_URL}auth/changePassword`, data)
       .then((res) => {
         alert(res.data.message);
       })

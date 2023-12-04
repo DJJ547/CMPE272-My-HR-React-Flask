@@ -8,7 +8,7 @@ export default function Logout() {
         "Content-Type": "application/json",
       },
     };
-    fetch("http://127.0.0.1:5000/auth/logout", options)
+    fetch(`${process.env.REACT_APP_API_URL}auth/logout`, options)
       .then((response) => response.json())
       .then((data) => {
         alert(data.message);

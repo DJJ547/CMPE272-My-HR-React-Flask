@@ -17,7 +17,7 @@ export default function Login() {
       return;
     }
 
-    fetch("http://localhost:5000/auth/signup", {
+    fetch(`${process.env.REACT_APP_API_URL}auth/signup`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ email, password, name }),

@@ -56,6 +56,7 @@ export default function Sidebar() {
               <img
                 src="https://icons.veryicon.com/png/o/miscellaneous/yuanql/icon-admin.png"
                 className="w-6 h-6"
+                alt=""
               />
             </ListItemPrefix>
             Admin

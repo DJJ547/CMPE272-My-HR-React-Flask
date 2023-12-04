@@ -3,7 +3,7 @@ import Chart from "react-apexcharts";
 
 export default function Dashboard() {
   const employee_information = JSON.parse(localStorage.getItem("employee_information"));
-
+  const [info, setInfo] = useState({})
 
   const [chartData, setChartData] = useState({
     options: {
@@ -42,6 +42,7 @@ export default function Dashboard() {
     fetch('http://localhost:5000/dashboard')
       .then(response => response.json())
       .then(data => {
+        console.log(data)
         setInfo(data)
         setChartData({
           ...chartData,
@@ -63,7 +64,8 @@ export default function Dashboard() {
             <img src={employee_information.profile_pic} alt="" className="w-32 h-32 mx-auto rounded-full" />
             <div className="space-y-4 text-center divide-y">
               <div className="my-2 space-y-1">
-                <h2 className="text-xl font-semibold">{employee_information.full_name}</h2>
+                <h2 className="text-xl font-semibold">{employee_information.first_name}</h2>
+                <h2 className="text-xl font-semibold">{employee_information.last_name}</h2>
                 <p className="text-sm text-gray-500">{employee_information.dept_name}</p>
                 <p className="text-sm text-gray-500">{employee_information.title}</p>
               </div>

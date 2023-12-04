@@ -11,7 +11,7 @@ from routes.auth import auth
 from routes.Clock import clock
 from routes.Message import socketio, message
 from routes.admin_route import admin_route
-from routes.salary import salary
+from routes.dashboard import dashboard
 from routes.setting import setting
 from routes.Schedule import schedule
 
@@ -20,7 +20,7 @@ app.register_blueprint(auth)
 app.register_blueprint(clock)
 app.register_blueprint(message)
 app.register_blueprint(admin_route)
-app.register_blueprint(salary)
+app.register_blueprint(dashboard)
 # app.register_blueprint(infoCard)
 app.register_blueprint(setting)
 app.register_blueprint(schedule)

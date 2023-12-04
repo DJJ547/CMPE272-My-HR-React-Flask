@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { Number } from "../components/clock/Number";
-import { Word } from "../components/clock/Word";
+import { Number } from "../components/Clock/Number";
+import { Word } from "../components/Clock/Word";
 import { format } from 'date-fns';
 
 const days = ["SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"];
@@ -47,11 +47,9 @@ export default function Clock(h24 = true) {
 
   function handlePunch(punchType) {
     setShowDisplay(true);
-    console.log(punchType);
     const time = new Date();
     let currentTime = time.getTime();
     currentTime = format(currentTime, 'yyyy-MM-dd HH:mm:ss')
-    console.log(currentTime);
 
     const options = {
       method: "POST",

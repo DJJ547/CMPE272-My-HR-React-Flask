@@ -16,7 +16,6 @@ import Login from "./pages/auth/Login";
 import Dashboard from "./pages/Dashboard";
 import Clock from "./pages/Clock";
 import Message from "./pages/Message";
-import Pay from "./pages/Pay";
 import ViewShifts from "./pages/ViewShifts";
 import Setting from "./pages/Setting";
 import AssignShifts from "./pages/manager/AssignShifts"

@@ -42,7 +42,7 @@ export default function ViewShifts() {
     fetch("http://127.0.0.1:5000/dashboard/employee/schedule", options)
       .then((response) => response.json())
       .then((data) => {
-        console.log(data[0][2]);
+        console.log(data)
         setTableData(data);
       })
       .catch((error) => console.error(error));

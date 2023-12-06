@@ -72,7 +72,7 @@ export default function MessageOutline() {
             const newComponent = React.createElement(MessageBox_me, {
               User: me.full_name,
               messages: message[0],
-              profile_pic_sender: data.profile_pic_sender,
+              profile_pic_sender: "https://upload.wikimedia.org/wikipedia/commons/6/61/Font_Awesome_5_solid_user-alt.svg",
             },`${message.sender}-${Date.now()}`);
             return newComponent;
           }
@@ -81,7 +81,7 @@ export default function MessageOutline() {
             const newComponent = React.createElement(MessageBox, {
               User: chatWindowState.otherUserName,
               messages: message[0],
-              profile_pic_receiver: data.profile_pic_receiver,
+              profile_pic_receiver: "https://upload.wikimedia.org/wikipedia/commons/6/61/Font_Awesome_5_solid_user-alt.svg",
             },`${message.sender}-${Date.now()}`);
             return newComponent;
           }

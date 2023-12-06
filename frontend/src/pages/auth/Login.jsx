@@ -1,7 +1,13 @@
 import React from "react";
+import { useAuth0 } from "@auth0/auth0-react";
 
 export default function Login() {
 
+  const { loginWithRedirect, isAuthenticated, user } = useAuth0();
+
+  const handleSSOLogin = () => {
+    loginWithRedirect();
+  };
   const handleSubmit = (e) => {
     e.preventDefault();
     const employee_no = e.target.elements.employee_no.value;
@@ -56,6 +62,12 @@ export default function Login() {
             className="bg-gradient-to-r from-indigo-500 to-blue-500 text-white font-bold py-2 px-4 rounded-md mt-4 hover:bg-indigo-600 hover:to-blue-600 transition ease-in-out duration-150"
           >
             Login
+          </button>
+          <button
+            onClick={handleSSOLogin}
+            className="bg-gradient-to-r from-green-500 to-blue-500 text-white font-bold py-2 px-4 rounded-md mt-4 hover:bg-green-600 hover:to-blue-600 transition ease-in-out duration-150"
+          >
+            Login with SSO
           </button>
         </form>
       </div>

@@ -52,4 +52,6 @@ def test():
 
 
 if __name__ == '__main__':
-    socketio.run(app, debug=True)
+    ssl_context = ssl.SSLContext(ssl.PROTOCOL_TLS)
+    ssl_context.load_cert_chain('certs/cert.pem', 'certs/key.pem')
+    socketio.run(app, debug=True, ssl_context=ssl_context)

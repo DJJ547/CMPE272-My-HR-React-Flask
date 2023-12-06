@@ -63,7 +63,7 @@ export default function Sidebar() {
           </ListItem>
         )}
 
-        <ListItem onClick={handleClick("/dashboard/clock")}>
+        <ListItem onClick={handleClick("/dashboard/Clock")}>
           <ListItemPrefix>
             <CalendarIcon className="h-5 w-5" />
           </ListItemPrefix>

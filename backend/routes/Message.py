@@ -3,8 +3,12 @@ import jwt
 from flask_socketio import SocketIO
 from config import app
 from flask_cors import CORS
+import os
+from dotenv import load_dotenv
 
-socketio = SocketIO(cors_allowed_origins="http://localhost:3000")
+load_dotenv()
+
+socketio = SocketIO(cors_allowed_origins=os.environ.get('FRONTEND_URL'))
 message = Blueprint('message', __name__)
 
 

@@ -1,4 +1,6 @@
-from flask import Blueprint, request, Response, jsonify, json, session
+from flask import Blueprint, request, Response, jsonify, json, session, url_for, redirect
+from urllib.parse import quote_plus, urlencode
+
 import jwt
 from config import app
 from models.employee import Employee
@@ -9,6 +11,25 @@ from utils import date_convertor
 from models.admin import admin
 auth = Blueprint('auth', __name__)
 
+import os
+from six.moves.urllib.parse import urlencode
+
+AUTH0_DOMAIN = "dev-8e5yx4hque4cspbf.us.auth0.com"
+AUTH0_CLIENT_ID = "UfmSHzml95JMgG9zcyqmyR2jqNWYI3Pe"
+CLIENT_SECRET = "BSSjzWAWq5TxoB0-IaeCaUkbvI268CcZKbhJuz68G0IfCStj7IlEcH38kdj0Lq8x"
+
+@auth.route('/auth/ssologin', methods=['POST'])
+def auth0_login():
+    return app.oauth.auth0.authorize_redirect(
+        redirect_uri="http://localhost:5000/auth/callback",
+    )
+
+@app.route("/auth/callback", methods=["GET", "POST"])
+def callback():
+    token = app.auth0.authorize_access_token()
+    print(token)
+    session["user"] = token
+    return redirect("/dashboard")
 
 @auth.route('/auth/login', methods=['POST'])
 def login():

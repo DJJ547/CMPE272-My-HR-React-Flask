@@ -81,6 +81,37 @@ The system addresses common workplace challenges such as manual time tracking er
 - **Role Management** - Assign and modify user permissions
 - **System Monitoring** - Track application performance
 
+## 📸 Demo Images
+
+### **Real-Time Communication**
+![Chat](./readme/chat.png)  
+*Messaging and updates for employees in real time.*
+
+### **Clock In/Out System**
+![Clock](./readme/clock.png)  
+*Easy clock in/out tracking for employee attendance.*
+
+### **Employee Profile**
+![Employee](./readme/employee.png)  
+*View and manage individual employee information.*
+
+### **Manager Shift Assignment**
+![Manager](./readme/manager.png)  
+*Managers can assign and adjust employee shifts.*
+
+### **Employee Schedule**
+![Schedule](./readme/schedule.png)  
+*Comprehensive schedule view for employees.*
+
+### **Settings**
+![Settings](./readme/setting.png)  
+*System preferences and configuration options.*
+
+### **Shift Checking**
+![Shift](./readme/shift.png)  
+*Employees can check assigned shifts easily.*
+
+
 ## 🎥 Demo Video
 
 Watch the full demo here:  
